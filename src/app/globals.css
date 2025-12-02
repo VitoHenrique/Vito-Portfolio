@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0A0A0A;
+  --surface: #121212;
+  --foreground: #EDEDED;
+  --secondary: #A1A1AA;
+  --brand-a: #3ECF8E;
+  --brand-b: #7928CA;
+  --border: #333333;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-foreground: var(--foreground);
+  --color-secondary: var(--secondary);
+  --color-brand-a: var(--brand-a);
+  --color-brand-b: var(--brand-b);
+  --color-border: var(--border);
+  
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-jetbrains-mono);
+}
+
+@layer utilities {
+  .glass-card {
+    background: rgba(18, 18, 18, 0.6);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(51, 51, 51, 0.5);
+  }
+  
+  .text-glow {
+    text-shadow: 0 0 20px rgba(62, 207, 142, 0.5);
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), sans-serif;
+  overflow-x: hidden;
+}

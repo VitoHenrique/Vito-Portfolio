@@ -1,0 +1,133 @@
+:root {
+    --hue: 27;
+    --sat: 69%;
+    --white: hsl(0, 0%, 100%);
+    --purple-primary: rgba(132, 0, 255, 1);
+    --purple-glow: rgba(132, 0, 255, 0.2);
+    --purple-border: rgba(132, 0, 255, 0.8);
+    --border-color: #333333;
+    --background-dark: #121212;
+    color-scheme: light dark;
+}
+
+.card-grid {
+    display: grid;
+    gap: 2rem;
+    /* Increased gap to match original design */
+    width: 100%;
+}
+
+.magic-bento-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    min-height: 300px;
+    /* Adjusted height */
+    width: 100%;
+    padding: 2rem;
+    /* Adjusted padding */
+    border-radius: 1rem;
+    /* rounded-2xl */
+    border: 1px solid var(--border-color);
+    background: var(--background-dark);
+    overflow: hidden;
+    transition: all 0.3s ease;
+
+    --glow-x: 50%;
+    --glow-y: 50%;
+    --glow-intensity: 0;
+    --glow-radius: 300px;
+}
+
+.magic-bento-card:hover {
+    transform: translateY(-5px);
+    border-color: transparent;
+}
+
+.magic-bento-card__header {
+    margin-bottom: 1.5rem;
+}
+
+.magic-bento-card__content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+/* Responsive Grid */
+@media (max-width: 767px) {
+    .card-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (min-width: 768px) {
+    .card-grid {
+        grid-template-columns: repeat(3, 1fr);
+        /* Changed to 3 columns */
+    }
+}
+
+/* Border glow effect */
+.magic-bento-card--border-glow::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    /* Thinner border */
+    background: radial-gradient(var(--glow-radius) circle at var(--glow-x) var(--glow-y),
+            rgba(62, 207, 142, calc(var(--glow-intensity) * 0.8)) 0%,
+            /* Brand color A */
+            rgba(121, 40, 202, calc(var(--glow-intensity) * 0.4)) 50%,
+            /* Brand color B */
+            transparent 100%);
+    border-radius: inherit;
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+}
+
+.magic-bento-card--border-glow:hover::after {
+    opacity: 1;
+}
+
+.particle-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.particle::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: rgba(62, 207, 142, 0.4);
+    /* Brand color A */
+    border-radius: 50%;
+    z-index: -1;
+}
+
+/* Global spotlight styles */
+.global-spotlight {
+    mix-blend-mode: screen;
+    will-change: transform, opacity;
+    z-index: 200 !important;
+    pointer-events: none;
+}
+
+.bento-section {
+    position: relative;
+    user-select: none;
+}
