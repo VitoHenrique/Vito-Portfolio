@@ -34,18 +34,18 @@ export default function Hero() {
                 </div>
 
                 <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-tight font-sans">
-                    Engenharia de Performance para <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-a to-brand-b">
-                        <TextType
-                            text={["Negócios Ambiciosos", "Startups em Crescimento", "Produtos Digitais", "Sistemas de Alta Escala"]}
-                            typingSpeed={150}
-                            deletingSpeed={75}
-                            pauseDuration={3000}
-                            loop={true}
-                            showCursor={true}
-                            cursorCharacter="|"
-                            cursorClassName="text-brand-a ml-1"
-                        />
-                    </span>.
+                    Engenharia de Performance para <TextType
+                        as="span"
+                        className="text-transparent bg-clip-text bg-gradient-to-r from-brand-a to-brand-b"
+                        text={["Negócios Ambiciosos", "Startups em Crescimento", "Produtos Digitais", "Sistemas de Alta Escala"]}
+                        typingSpeed={150}
+                        deletingSpeed={75}
+                        pauseDuration={3000}
+                        loop={true}
+                        showCursor={true}
+                        cursorCharacter="|"
+                        cursorClassName="text-brand-a ml-1"
+                    />.
                 </h1>
 
                 <p className="text-lg md:text-xl text-secondary max-w-2xl mx-auto font-sans">
