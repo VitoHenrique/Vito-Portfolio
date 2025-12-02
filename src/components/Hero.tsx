@@ -33,9 +33,10 @@ export default function Hero() {
                     Disponível para novos projetos
                 </div>
 
-                Engenharia de Performance para <TextType
+                Engenharia de Performance para <span className="text-brand-a inline md:hidden">Negócios Ambiciosos</span>
+                <TextType
                     as="span"
-                    className="text-brand-a md:text-transparent md:bg-clip-text md:bg-gradient-to-r md:from-brand-a md:to-brand-b inline"
+                    className="hidden md:inline text-transparent bg-clip-text bg-gradient-to-r from-brand-a to-brand-b"
                     text={["Negócios Ambiciosos", "Startups em Crescimento", "Produtos Digitais", "Sistemas de Alta Escala"]}
                     typingSpeed={150}
                     deletingSpeed={75}
