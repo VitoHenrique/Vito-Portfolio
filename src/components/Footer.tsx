@@ -7,25 +7,25 @@ export default function Footer() {
     return (
         <footer id="contact" className="py-24 px-6 border-t border-white/5 bg-surface/30">
             <div className="max-w-4xl mx-auto text-center">
-                <h2 className="text-3xl md:text-5xl font-bold mb-8 font-sans tracking-tighter">
+                <h2 className="text-3xl md:text-5xl font-bold mb-8 font-sans tracking-tighter text-balance">
                     Sua empresa parou em 2015? <br />
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-a to-brand-b">
-                        <TextType
-                            text={[
-                                "Atualize sua realidade digital hoje.",
-                                "Domine o mercado com velocidade.",
-                                "Escale seu negócio com tecnologia.",
-                                "Transforme visitantes em clientes."
-                            ]}
-                            typingSpeed={150}
-                            deletingSpeed={75}
-                            pauseDuration={3000}
-                            loop={true}
-                            showCursor={true}
-                            cursorCharacter="|"
-                            cursorClassName="text-brand-a ml-1"
-                        />
-                    </span>
+                    <TextType
+                        as="span"
+                        className="text-transparent bg-clip-text bg-gradient-to-r from-brand-a to-brand-b inline"
+                        text={[
+                            "Atualize sua realidade digital hoje.",
+                            "Domine o mercado com velocidade.",
+                            "Escale seu negócio com tecnologia.",
+                            "Transforme visitantes em clientes."
+                        ]}
+                        typingSpeed={150}
+                        deletingSpeed={75}
+                        pauseDuration={3000}
+                        loop={true}
+                        showCursor={true}
+                        cursorCharacter="|"
+                        cursorClassName="text-brand-a ml-1"
+                    />
                 </h2>
 
                 <div className="flex flex-col md:flex-row items-center justify-center gap-6 mb-16">

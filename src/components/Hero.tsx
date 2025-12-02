@@ -33,7 +33,7 @@ export default function Hero() {
                     Disponível para novos projetos
                 </div>
 
-                <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-tight font-sans">
+                <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-tight font-sans text-balance">
                     Engenharia de Performance para <TextType
                         as="span"
                         className="text-transparent bg-clip-text bg-gradient-to-r from-brand-a to-brand-b inline"
@@ -48,8 +48,8 @@ export default function Hero() {
                     />.
                 </h1>
 
-                <p className="text-lg md:text-xl text-secondary max-w-2xl mx-auto font-sans">
-                    Transformamos problemas complexos em receita. Sites e Sistemas ultra-rápidos equipados com a nova stack da web <br />
+                <p className="text-lg md:text-xl text-secondary max-w-2xl mx-auto font-sans text-balance">
+                    Transformamos problemas complexos em receita. Sites e Sistemas ultra-rápidos equipados com a nova stack da web <br className="hidden md:inline" />
                     (<span className="text-brand-a font-medium">Supabase</span> & <span className="text-brand-b font-medium">AntiGravity</span>).
                 </p>
 
