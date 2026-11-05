@@ -1,7 +1,7 @@
 import { Logo } from "@/componentes/Logo";
 import { Botao, BotaoWhatsApp } from "@/componentes/Botao";
 import { TituloDuasVozes } from "@/componentes/TituloDuasVozes";
-import { AncoraPonto } from "@/motion/Ponto";
+import { AncoraPonto } from "@/motion/AncoraPonto";
 
 /**
  * Home provisória da Fase 1 (só na branch site-2026).

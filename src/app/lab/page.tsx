@@ -9,8 +9,8 @@ import { ListaMarcada, Losango } from "@/componentes/Marcador";
 import { Celular } from "@/componentes/Celular";
 import { formatarReais, planos, totalEm12Meses } from "@/conteudo/precos";
 import { curvas, tempos } from "@/motion/curvas";
-import { AncoraPonto, Ponto } from "@/motion/Ponto";
-import { Filme } from "@/motion/Filme";
+import { AncoraPonto } from "@/motion/AncoraPonto";
+import { Filme, Ponto } from "@/motion/Motor";
 import { LabMovimento } from "./LabMovimento";
 
 export const metadata: Metadata = {

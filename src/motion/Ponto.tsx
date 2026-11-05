@@ -98,24 +98,3 @@ export function Ponto() {
     />
   );
 }
-
-type PropsAncora = {
-  /** Nome da âncora, para o modo bastidores e a depuração. */
-  nome: string;
-  /** Carimba (1 → 1,18 → 1) ao chegar. */
-  carimbo?: boolean;
-  /** Tamanho e posição: o Ponto assume exatamente este círculo. Cortado pela borda é aqui. */
-  className: string;
-};
-
-/** Onde o Ponto pousa nesta cena. Sem texto em cima, nunca. */
-export function AncoraPonto({ nome, carimbo, className }: PropsAncora) {
-  return (
-    <div
-      aria-hidden
-      data-ponto={nome}
-      data-ponto-carimbo={carimbo ? "" : undefined}
-      className={`ancora-ponto pointer-events-none aspect-square rounded-pill bg-verde-lima ${className}`}
-    />
-  );
-}

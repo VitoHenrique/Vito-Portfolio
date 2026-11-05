@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { contatos, marca } from "@/conteudo/site";
-import { Rolagem } from "@/motion/Rolagem";
+import { Rolagem } from "@/motion/Motor";
 
 const epilogue = localFont({
   src: "../fontes/Epilogue-Variable.woff2",
