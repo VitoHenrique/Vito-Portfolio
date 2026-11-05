@@ -15,12 +15,13 @@ export function Heroi() {
       id="heroi"
       data-cena="01"
       aria-labelledby="titulo-heroi"
-      className="relative isolate flex min-h-[100svh] flex-col justify-end overflow-clip px-3 pb-6 pt-[calc(64px+env(safe-area-inset-top))] md:min-h-dvh md:justify-center md:px-6 md:pb-6 md:pt-[72px]"
+      // Celular: o conteúdo começa sempre abaixo do Ponto (48vw = fundo do círculo + respiro). Nada de texto em cima dele.
+      className="relative isolate flex min-h-[100svh] flex-col justify-end overflow-clip px-3 pb-6 pt-[calc(48vw+env(safe-area-inset-top)+24px)] md:min-h-dvh md:justify-center md:px-6 md:pb-6 md:pt-[72px]"
     >
       <AncoraPonto
         nome="heroi"
         ponteiro
-        className="absolute -right-[34vw] -top-[18vw] -z-10 w-[86vw] md:-right-[14vw] md:-top-[22vw] md:w-[52vw] lg:-right-[10vw] lg:-top-[18vw] lg:w-[44vw]"
+        className="absolute -right-[26vw] -top-[22vw] -z-10 w-[70vw] md:-right-[14vw] md:-top-[22vw] md:w-[52vw] lg:-right-[10vw] lg:-top-[18vw] lg:w-[44vw]"
       />
       {/*
         A seta para baixo, sobre a parte visível do Ponto (pedido do Vito): diz "role para ver mais".
@@ -29,7 +30,7 @@ export function Heroi() {
       <a
         href="#servicos"
         aria-label="Descer para ver mais"
-        className="seta-ponto absolute left-[74vw] top-[34vw] z-10 grid size-16 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-pill text-grafite md:left-[80vw] md:top-[20vw] md:size-24 lg:top-[18vw]"
+        className="seta-ponto absolute left-[76vw] top-[32vw] z-10 grid size-16 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-pill text-grafite md:left-[80vw] md:top-[20vw] md:size-24 lg:top-[18vw]"
       >
         <svg aria-hidden viewBox="0 0 24 24" className="size-12 md:size-20" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M12 4v15M5.5 12.5 12 19l6.5-6.5" />

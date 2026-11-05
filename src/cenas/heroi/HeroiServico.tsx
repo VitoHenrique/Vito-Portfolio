@@ -27,12 +27,13 @@ export function HeroiServico({ pesada, leve, texto, pontos, origem, pedido, secu
       id="heroi"
       data-cena="01"
       aria-labelledby="titulo-heroi"
-      className="relative isolate flex min-h-[86svh] flex-col justify-end overflow-clip px-3 pb-6 pt-[calc(64px+env(safe-area-inset-top))] md:min-h-[90dvh] md:justify-center md:px-6 md:pt-[72px]"
+      // Celular: o conteúdo começa sempre abaixo do Ponto (44vw = fundo do círculo + respiro). Nada de texto em cima dele.
+      className="relative isolate flex min-h-[86svh] flex-col justify-end overflow-clip px-3 pb-6 pt-[calc(44vw+env(safe-area-inset-top)+24px)] md:min-h-[90dvh] md:justify-center md:px-6 md:pt-[72px]"
     >
       <AncoraPonto
         nome="heroi"
         ponteiro
-        className="absolute -right-[38vw] -top-[22vw] -z-10 w-[80vw] md:-right-[16vw] md:-top-[22vw] md:w-[46vw] lg:-right-[12vw] lg:-top-[18vw] lg:w-[38vw]"
+        className="absolute -right-[22vw] -top-[20vw] -z-10 w-[64vw] md:-right-[16vw] md:-top-[22vw] md:w-[46vw] lg:-right-[12vw] lg:-top-[18vw] lg:w-[38vw]"
       />
       <div className="mx-auto flex w-full max-w-[1320px] flex-col gap-4 md:gap-5">
         <TituloDuasVozes id="titulo-heroi" as="h1" pesada={pesada} leve={leve} className="max-w-[14ch]" />

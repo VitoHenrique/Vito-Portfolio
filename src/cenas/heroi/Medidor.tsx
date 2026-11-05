@@ -37,7 +37,7 @@ export function Medidor() {
   // Abaixo de 0,1 s, duas casas: "0,0 s" pareceria número inventado.
   const s = (ms / 1000).toFixed(ms < 100 ? 2 : 1).replace(".", ",");
   return (
-    <p className="rotulo min-h-[1.3em] text-cinza-oliva" aria-live="polite">
+    <p className="rotulo min-h-[1.3em] w-fit text-cinza-oliva" aria-live="polite">
       Esta página abriu em <span className="text-verde-lima">{s} s</span>
       <span className="hidden md:inline"> no seu aparelho</span>
     </p>
