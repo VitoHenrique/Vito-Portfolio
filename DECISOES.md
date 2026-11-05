@@ -78,9 +78,22 @@ O PageSpeed Insights sem chave respondeu 429 (cota esgotada). A medição foi fe
 - **GSAP 3.15.0, não 3.15.1.** A 3.15.1 saiu em 04/11/2026, um dia antes. Atualizo quando ela tiver duas semanas.
 - **Vitest 4.1.12.** A 5.x exige `@types/node` 22+, e o projeto está em Node 20.
 
-### Medidas da Fase 1 (servidor local, `next start`)
+### Meta de 170 KB: motor de animação fora do caminho crítico
 
-- JavaScript na abertura da home: 8 arquivos, 183 KB com gzip. React e Next somam ~120 KB, e o núcleo do GSAP o resto. Falta medir no preview da Vercel, que usa brotli.
+- Com o GSAP direto no bundle, a home carregava 188 KB no preview (brotli). React e Next sozinhos somam ~125 KB, e o núcleo GSAP + ScrollTrigger, mesmo enxuto, tem 46 KB.
+- **Decisão:** o HTML e o React hidratam sem o GSAP. `motion/Motor.tsx` carrega Ponto, Filme e Rolagem (e, na Fase 2, as ilhas de cada cena) por `next/dynamic` com `ssr: false`, logo depois da hidratação.
+- Não se perde nada visível: o H1 está no primeiro quadro, cada âncora já é o Ponto estático no HTML, e o Ponto viajante nasce exatamente sobre ela.
+- SplitText e CustomEase saíram do núcleo. SplitText carrega sob demanda, e as curvas da marca viraram uma função `bezier()` testada.
+
+### Medidas da Fase 1 (preview da Vercel, brotli)
+
+| Medida | Valor | Meta |
+| --- | --- | --- |
+| JavaScript no HTML da home | 137 KB em 6 arquivos | até 170 KB |
+| Motor de animação, depois da hidratação | 47 KB em 2 arquivos | fora da abertura |
+| JavaScript no HTML do `/lab` | 184 KB | não conta (página interna, importa o GSAP direto) |
+
+- `/lab` sai com `noindex, nofollow`. Canonical, `og:image` e `icon.svg` aparecem no HTML.
 - Fontes: só a Epilogue (35 KB) carrega na abertura.
 - Console sem erros. O Ponto viaja entre as âncoras do `/lab`, e o contador de cena funciona.
 - Busca por itens aposentados (cores antigas, Inter, JetBrains, "Code never lies.", cidade, `@vito.dev`, npx, gradiente, glow, blur, stack, "agência", travessão em texto visível): nada no código do site.
