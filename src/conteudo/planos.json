@@ -1,0 +1,8 @@
+{
+  "_comentario": "Preços oficiais. O validador recusa qualquer post que cite um valor em R$ fora desta lista. Mudou preço? Atualize aqui e no site.",
+  "planos": [
+    { "id": "inicial", "nome": "Pacote Inicial", "produto": "Cartão de Visita Digital", "implantacao": 200, "mensalidade": 99.9 },
+    { "id": "pro", "nome": "Pacote Pro", "produto": "Site Institucional Completo", "implantacao": 400, "mensalidade": 199.9 },
+    { "id": "sob-medida", "nome": "Sistema sob medida", "produto": "Vito System", "implantacao_a_partir_de": 1000, "mensalidade": null }
+  ]
+}

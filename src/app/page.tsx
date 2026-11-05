@@ -1,42 +1,35 @@
-import Header from '@/components/Header';
-import Hero from '@/components/Hero';
-import Services from '@/components/Services';
-import TechMarquee from '@/components/TechMarquee';
-import Difference from '@/components/Difference';
-import Footer from '@/components/Footer';
-import ColorBends from '@/components/ColorBends';
-import About from '@/components/About';
-import Process from '@/components/Process';
-import FAQ from '@/components/FAQ';
+import { Logo } from "@/componentes/Logo";
+import { Botao, BotaoWhatsApp } from "@/componentes/Botao";
+import { TituloDuasVozes } from "@/componentes/TituloDuasVozes";
+import { AncoraPonto } from "@/motion/Ponto";
 
+/**
+ * Home provisória da Fase 1 (só na branch site-2026).
+ * As cenas 0, 1 e 8 entram na Fase 2; o resto na Fase 3.
+ */
 export default function Home() {
   return (
-    <main className="min-h-screen bg-background text-foreground selection:bg-brand-a/30 selection:text-brand-a relative">
-      <div className="fixed inset-0 z-0 pointer-events-none">
-        <ColorBends
-          colors={["#ff5c7a", "#8a5cff", "#00ffd1"]}
-          rotation={30}
-          speed={0.3}
-          scale={1.2}
-          frequency={1.4}
-          warpStrength={1.2}
-          mouseInfluence={0.8}
-          parallax={0.6}
-          noise={0.08}
-          transparent
-        />
-      </div>
-      <div className="relative z-10">
-        <Header />
-        <Hero />
-        <TechMarquee />
-        <About />
-        <Services />
-        <Process />
-        <Difference />
-        <FAQ />
-        <Footer />
-      </div>
+    <main id="conteudo" className="relative isolate min-h-dvh overflow-hidden px-3 md:px-6">
+      <AncoraPonto
+        nome="heroi"
+        className="absolute -right-[28vmin] -top-[28vmin] -z-10 w-[58vmin] md:-right-[20vmin] md:-top-[22vmin]"
+      />
+      <header className="mx-auto flex max-w-[1280px] items-center justify-between gap-4 py-4">
+        <Logo largura={160} prioridade />
+      </header>
+      <section className="mx-auto flex min-h-[calc(100dvh-96px)] max-w-[1280px] flex-col justify-center gap-5 pb-6">
+        <TituloDuasVozes as="h1" tamanho="display" pesada="Seu site no ar." leve="Ponto" className="max-w-[12ch]" />
+        <p className="corpo max-w-[46ch] text-cinza-oliva">
+          Sites, sistemas, identidade visual e vídeos para pequenos e médios negócios, direto comigo, de onde você
+          estiver.
+        </p>
+        <div className="flex flex-wrap items-center gap-3">
+          <BotaoWhatsApp origem="heroi" />
+          <Botao variante="secundario" href="/lab">
+            Ver a fundação
+          </Botao>
+        </div>
+      </section>
     </main>
   );
 }

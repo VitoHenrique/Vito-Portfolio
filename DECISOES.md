@@ -51,6 +51,40 @@ O PageSpeed Insights sem chave respondeu 429 (cota esgotada). A medição foi fe
 - As skills de GSAP (`/plugin marketplace add greensock/gsap-skills`) só instalam por um terminal `claude`. O Vito instala, ou eu sigo a documentação oficial do GSAP.
 - Skills do Remotion instaladas com `npx skills add remotion-dev/skills` (13 skills, versão 4.0.540) em `.claude/skills/`. O alerta de risco da `remotion-docs` vem da chave pública de busca Algolia da documentação do Remotion, que é aberta por padrão. Revisado e mantido. As pastas das skills ficam fora do Git (caminhos longos demais no Windows); o `skills-lock.json` versionado permite reinstalar.
 
+## Fase 1: fundação (04/11/2026)
+
+### O que entrou
+
+- **Limpeza:** saíram todos os componentes antigos e as bibliotecas Framer Motion, Three.js, lucide-react, react-icons, clsx e tailwind-merge. Também saíram os PNGs do logo antigo e os SVGs de exemplo do Next.
+- **Tokens:** `globals.css` com `@theme` do Tailwind 4 gerado do `tokens.json`. A paleta, as fontes, as sombras e os blurs padrão do Tailwind foram desligados (`--color-*: initial` etc.): escrever `bg-blue-500`, `blur` ou `shadow` não gera CSS.
+- **Fontes:** `next/font/local` com os dois `.woff2` do pacote. Epilogue pré-carregada, Martian Mono sem pré-carga (só rótulos).
+- **Logos:** os 6 SVGs oficiais em `public/marca/`, usados por `<Logo>` sempre como arquivo, nunca redigitados.
+- **Ícones:** `icon.svg` = símbolo oficial sobre o quadrado Grafite. `apple-icon.png` (180), `icone-192/512.png` e `vito-dev-icone.png` (redondo, para a assinatura de e-mail) gerados por `npm run icones`.
+- **Compartilhamento:** `opengraph-image.png` e `twitter-image.png` = `aplicacoes/site-compartilhamento.png` (1200 × 630, sem cidade, sem @).
+- **Componentes:** `Botao`/`BotaoWhatsApp`, `Card`, `TituloDuasVozes`, `Rotulo`/`Numero`, `ListaMarcada`/`Marcador`/`Losango`, `Logo`, `Celular`.
+- **Regras com teste (Vitest, 15 testes):** `precos.ts` (formato R$, total em 12 meses a partir do `planos.json`) e `whatsapp.ts` (as 5 mensagens do briefing, limpeza do nome do negócio em 32 caracteres).
+- **Movimento:** `curvas.ts` (tokens), `gsap.ts` (registro), `plugins.ts` (carga sob demanda), `usarCena.ts` (`useCena` com os 3 ramos do `matchMedia`), `assinatura.ts` (carimbo, máscara, duasVozes), `Ponto.tsx`, `Filme.tsx` e `Rolagem.tsx` (Lenis).
+- **`/lab`:** bancada sem indexação (`noindex, nofollow`) com cores, tipos, botões, cards, logos, celular, tokens de movimento tocáveis e o Ponto viajando entre 3 âncoras.
+- **Home provisória:** H1 real "Seu site no ar. Ponto." e botão de WhatsApp, só para o preview não ficar vazio. As cenas entram na Fase 2.
+
+### Decisões de implementação
+
+- **Plugins do GSAP em duas camadas.** O briefing pede registro único em `motion/gsap.ts`. Registrar os 10 plugins de uma vez custa uns 90 KB comprimidos na abertura, o que estoura a meta de 170 KB. O núcleo (gsap, useGSAP, ScrollTrigger, SplitText, CustomEase) fica em `gsap.ts`. Flip, DrawSVG, MorphSVG, MotionPath, Draggable e Inertia entram por `carregarPlugins()` quando a cena se aproxima. O único ponto de registro continua sendo `gsap.ts` (`registrar()`).
+- **Como o Ponto funciona.** Cada cena tem uma `<AncoraPonto>`, que já é um círculo Verde Lima no HTML. Sem JS, ou com movimento reduzido, cada cena mostra o seu grafismo estático. Com movimento, a classe `ponto-vivo` esconde as âncoras e o Ponto fixo assume: viaja para a âncora da cena ativa (curva `entrada`, 0,7 s), depois fica preso a ela durante o scroll e carimba se a âncora pedir. A posição é calculada a cada quadro a partir da âncora, então redimensionar a tela não exige recálculo.
+- **O Ponto é desenhado com 1000 px e reduzido com `scale`,** para a borda ficar nítida em qualquer tamanho.
+- **Hook `useCena`.** O arquivo segue o nome do briefing (`usarCena.ts`), mas a função precisa começar com `use` por causa das regras de hooks do React.
+- **Origem do WhatsApp.** As mensagens seguem o texto do briefing, sem etiqueta de seção no meio, para soar natural. A origem do clique vai no atributo `data-origem` do botão, que alimenta o evento `whatsapp_click`.
+- **Botão.** O hover usa só a propriedade CSS `translate`. O GSAP anima `transform`, então os dois nunca disputam a mesma propriedade.
+- **GSAP 3.15.0, não 3.15.1.** A 3.15.1 saiu em 04/11/2026, um dia antes. Atualizo quando ela tiver duas semanas.
+- **Vitest 4.1.12.** A 5.x exige `@types/node` 22+, e o projeto está em Node 20.
+
+### Medidas da Fase 1 (servidor local, `next start`)
+
+- JavaScript na abertura da home: 8 arquivos, 183 KB com gzip. React e Next somam ~120 KB, e o núcleo do GSAP o resto. Falta medir no preview da Vercel, que usa brotli.
+- Fontes: só a Epilogue (35 KB) carrega na abertura.
+- Console sem erros. O Ponto viaja entre as âncoras do `/lab`, e o contador de cena funciona.
+- Busca por itens aposentados (cores antigas, Inter, JetBrains, "Code never lies.", cidade, `@vito.dev`, npx, gradiente, glow, blur, stack, "agência", travessão em texto visível): nada no código do site.
+
 ### Padrões assumidos enquanto o Vito não responde
 
 | # | Pergunta | Padrão em uso |

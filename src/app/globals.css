@@ -1,55 +1,153 @@
 @import "tailwindcss";
 
-:root {
-  --background: #0A0A0A;
-  --surface: #121212;
-  --foreground: #EDEDED;
-  --secondary: #A1A1AA;
-  --brand-a: #3ECF8E;
-  --brand-b: #7928CA;
-  --border: #333333;
+/*
+ * vito.dev · identidade Encontro (2026)
+ * Fonte dos valores: _briefing/marca/tokens.json. Nenhuma cor ou fonte fora daqui.
+ * A paleta padrão do Tailwind é desligada: só existem as cores da marca.
+ */
+@theme {
+  --color-*: initial;
+  --color-verde-lima: #a8e63d;
+  --color-grafite: #0e0f0c;
+  --color-grafite-claro: #181a15;
+  --color-linha: #2b2e26;
+  --color-giz: #f2f1ea;
+  --color-cinza-oliva: #a3a595;
+  --color-coral: #ff6b4a;
+  --color-papel: #f4f3ee;
+  --color-verde-folha: #3d7a0f;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  --font-*: initial;
+  --font-sans: var(--fonte-epilogue), system-ui, sans-serif;
+  --font-mono: var(--fonte-martian), ui-monospace, monospace;
+
+  --radius-*: initial;
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-pill: 999px;
+
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 16px;
+  --spacing-4: 24px;
+  --spacing-5: 40px;
+  --spacing-6: 64px;
+
+  --shadow-*: initial;
+  --blur-*: initial;
+  --drop-shadow-*: initial;
+  --text-shadow-*: initial;
+
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1440px;
+
+  /* movimento: mesmos valores de src/motion/curvas.ts */
+  --ease-entrada: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-saida: cubic-bezier(0.7, 0, 0.84, 0);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-surface: var(--surface);
-  --color-foreground: var(--foreground);
-  --color-secondary: var(--secondary);
-  --color-brand-a: var(--brand-a);
-  --color-brand-b: var(--brand-b);
-  --color-border: var(--border);
-
-  --font-sans: var(--font-inter);
-  --font-mono: var(--font-jetbrains-mono);
+/* Escala tipográfica do tokens.json, com o site em 56/40 px no título. */
+@utility display {
+  font-family: var(--font-sans);
+  font-size: clamp(3rem, 1.4rem + 6.8vw, 7rem);
+  line-height: 0.95;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+@utility titulo {
+  font-family: var(--font-sans);
+  font-size: clamp(2.5rem, 2rem + 1.6vw, 3.5rem);
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+}
+@utility titulo-leve {
+  font-weight: 300;
+  letter-spacing: -0.02em;
+}
+@utility subtitulo {
+  font-family: var(--font-sans);
+  font-size: 1.5rem;
+  line-height: 1.25;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+@utility corpo {
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  line-height: 1.5;
+  font-weight: 400;
+  @media (width >= 768px) {
+    font-size: 1.125rem;
+  }
+}
+@utility corpo-pequeno {
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  font-weight: 400;
+}
+@utility rotulo {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.3;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+@utility numero {
+  font-family: var(--font-mono);
+  font-size: 0.9375rem;
+  line-height: 1.3;
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
 }
 
-@layer utilities {
-  .glass-card {
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+@layer base {
+  :root {
+    color-scheme: dark;
   }
-
-  .glass-card:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2);
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
   }
-
-  .text-glow {
-    text-shadow: 0 0 30px rgba(62, 207, 142, 0.4);
+  body {
+    background: var(--color-grafite);
+    color: var(--color-giz);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: clip;
   }
-
-  .text-glow-purple {
-    text-shadow: 0 0 30px rgba(121, 40, 202, 0.4);
+  ::selection {
+    background: var(--color-verde-lima);
+    color: var(--color-grafite);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-verde-lima);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans), sans-serif;
-  overflow-x: hidden;
+/* O Ponto (src/motion/Ponto.tsx): com movimento, o Ponto viajante substitui as âncoras estáticas. */
+html.ponto-vivo .ancora-ponto {
+  visibility: hidden;
+}
+
+/* Lenis (só desktop, ligado em src/motion/Rolagem.tsx) */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-stopped {
+  overflow: clip;
 }
