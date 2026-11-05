@@ -184,7 +184,8 @@ export function PerfilSimulado() {
 
   return (
     <div className="relative h-full">
-      <div className="h-full overflow-y-auto pt-10 [scrollbar-width:none]">
+      {/* pt-16: abaixo do recorte do topo da moldura do celular */}
+      <div className="h-full overflow-y-auto pt-16 [scrollbar-width:none]">
       <div className="flex items-center gap-4 px-4">
         <Imagem base="/marca/aplicacoes/instagram-perfil" alt="Foto de perfil: o símbolo da vito.dev" className="size-16 shrink-0 rounded-pill object-cover" prioridade />
         <div className="flex flex-col">
