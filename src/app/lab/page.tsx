@@ -162,8 +162,8 @@ export default function Lab() {
         <Bloco titulo="Movimento" cena="03">
           <dl className="mb-5 grid gap-2 md:grid-cols-3">
             {[
-              ["entrada", curvas.entrada],
-              ["saída", curvas.saida],
+              ["entrada", `cubic-bezier(${curvas.entrada.join(", ")})`],
+              ["saída", `cubic-bezier(${curvas.saida.join(", ")})`],
               ["cascata", `${tempos.cascata} s`],
               ["duasVozes", "0 · +0,12 · +0,28 s"],
               ["carimbo", "0 → 1,18 → 1 em 0,35 s"],
