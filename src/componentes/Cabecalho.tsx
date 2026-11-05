@@ -2,6 +2,7 @@ import { Wordmark } from "./Wordmark";
 import { BotaoWhatsApp } from "./Botao";
 
 const links = [
+  { href: "#servicos", rotulo: "Serviços" },
   { href: "#videos", rotulo: "Vídeos" },
   { href: "#planos", rotulo: "Planos" },
 ];
@@ -9,7 +10,7 @@ const links = [
 /**
  * Cabeçalho fixo: logo, navegação e WhatsApp.
  * Sai de cena na tela verde dos planos (o logo nunca vai sobre o Verde Lima).
- * "Serviços" entra na Fase 3, junto com a cena dos quatro ofícios.
+ * O atalho da tecla ponto é anunciado aqui para quem navega por teclado.
  */
 export function Cabecalho() {
   return (
@@ -27,6 +28,12 @@ export function Cabecalho() {
             className="corpo-pequeno sr-only rounded-pill px-3 py-2 text-cinza-oliva focus:not-sr-only focus:text-giz"
           >
             Pular para os planos
+          </a>
+          <a
+            href="#fecho"
+            className="corpo-pequeno sr-only rounded-pill px-3 py-2 text-cinza-oliva focus:not-sr-only focus:text-giz"
+          >
+            Ir para o fim (atalho: tecla ponto)
           </a>
           <ul className="hidden items-center gap-1 md:flex">
             {links.map((l) => (

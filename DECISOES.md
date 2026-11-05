@@ -145,6 +145,62 @@ O PageSpeed Insights sem chave respondeu 429 (cota esgotada). A medição foi fe
 - O Lighthouse local fica distorcido pelo antivírus (ele descomprime e reescreve as páginas). `scripts/medir.ps1` bloqueia os arquivos injetados, mas os números oficiais são os do PageSpeed acima.
 - O SEO do preview aparece como 66 no Lighthouse local por causa do `noindex` que a Vercel põe em todo preview. No PageSpeed oficial deu 100.
 
+## Portão 1 (05/11/2026)
+
+- O Vito pediu "só o preview" (nada em produção) e depois "continue o projeto". Tomei isso como aprovação da direção da fatia vertical. As três perguntas do portão (garantia, Padaria Sol, chave do PageSpeed) seguem abertas, com os padrões da tabela.
+
+## Fase 3: home completa (05/11/2026)
+
+### As 12 cenas
+
+| # | Cena | O que entrou |
+| --- | --- | --- |
+| 0 | Carimbo | Da Fase 2 |
+| 1 | Herói | Da Fase 2 |
+| 2 | A corrida | Dois celulares, lento (Coral, 5,0 s) e rápido (Lima). O rápido usa o LCP real desta página no aparelho do visitante; sem a API, 1,0 s. Rótulo `SIMULAÇÃO`. No celular, um aparelho por vez. O Ponto pousa ao lado e vira o cronômetro |
+| 3 | Quatro ofícios | Lista dos 4 serviços com preço público só onde existe. Um objeto único muda de forma (navegador, painel, símbolo, quadro de vídeo) com corte seco. Cada item leva à cena do serviço. Menu ganhou "Serviços" |
+| 4 | Sites: monte o seu | Nome + tipo (barbearia, clínica, delivery, escritório, loja) e o site monta no celular. `PRÉVIA · DADOS DE EXEMPLO`. WhatsApp com a mensagem de prévia |
+| 5 | Sistemas | Planilha (com erros em Coral), login e painel. No desktop: pin de 200 vh, as células voam até os blocos do painel. Celular e movimento reduzido: três quadros lado a lado. ADMIN / FUNCIONÁRIO só com CSS (`:has`). `DADOS DE EXEMPLO` |
+| 6 | Identidade visual | Anatomia do símbolo com as 4 medidas do manual (geometria do SVG oficial), antes e depois com quadros reais do reel, aplicações reais (perfil, capa do WhatsApp, cartão com giro 3D, proposta, favicon) com Flip sob demanda, e "o que vem no pacote" |
+| 7 | Instagram | Perfil funcional no celular com o conteúdo real: 5 posts publicados (2 carrosséis), 4 destaques com stories (planos, sites, rápido, oi), aba Reels (o reel aparece a partir de 06/11 18h). Post em tela cheia com carrossel, legenda real e link para o post original. Grade com a linha tipográfica fixada no topo, e o hover explica a metodologia de cada linha |
+| 8 | Vídeos | Da Fase 2 |
+| 9 | Planos | A tela verde: uma vez só, menos de uma altura de tela, texto e ponto em Grafite, e o cabeçalho (com o logo) sai de cena. Depois, os cards |
+| 10 | Como funciona e Vito | A linha desenha as 4 etapas com o scroll (só `scaleX`/`scaleY`) e termina no retrato do Vito. Em seguida, uma conversa `SIMULAÇÃO` com as mensagens reais do WhatsApp Business |
+| 11 | Perguntas e fecho | As 8 perguntas do briefing, reescritas na primeira pessoa, em `<details>` (teclado e sem JS). No fecho, o Ponto encolhe e pousa exatamente sobre o ponto final de "Seu site no ar. Ponto." |
+
+### Instagram: `npm run sync:ig`
+
+- `scripts/sync-ig.mjs` lê o repositório `vitodev-instagram` clonado e gera `public/ig/` (AVIF + WebP, 815 KB, carregados só perto da cena) e `src/conteudo/instagram.json`.
+- Os posts são renderizados pelo próprio pipeline do repositório (`scripts/render.mjs`), só os que estão em `estado/publicados.json`. As imagens dele ficam no Supabase, com URL em segredo, então renderizar é o caminho que não precisa de chave.
+- A garantia nunca entra: o sync recusa qualquer arquivo com "garantia".
+- **Bio:** a bio real do perfil não está no repositório. Usei a descrição oficial do WhatsApp Business. Trocar pela bio real se for diferente.
+- Primeira entrega com sincronização manual. O deploy hook automático fica para depois do lançamento, como o briefing prevê.
+
+### Decisões de implementação
+
+- **Funções que entraram sem perguntar** (passam nas 5 perguntas do briefing): conversa simulada (cena 10), tecla ponto (leva ao fecho, anunciada no menu por teclado), cabeçalho que sai na tela verde.
+- **Carrossel do post com scroll-snap nativo, não Draggable:** funciona com toque, teclado (botões) e leitor de tela sem JS extra.
+- **Story com avanço automático de 5 s;** com movimento reduzido, só avança com toque.
+- **Verso do cartão em HTML,** com o @ correto. O PNG do verso tinha o @ provisório e ficou de fora, como o briefing pede. O QR do verso não entra no site.
+- **Peças com o ponto gigante dentro de imagens** (capa do WhatsApp, proposta, posts): são provas do trabalho, não grafismo do site. O único Ponto do site continua sendo um.
+- **Símbolo só em perfil, favicon e ícone:** tirei o símbolo que eu tinha posto no meio de uma frase.
+- **Rótulo em Mono acima do título:** só na cena de vídeos (1 de 12), dentro do limite de 1 a cada 3.
+
+### Correções de base que valem para o site inteiro
+
+- **Máscaras por variável numérica.** O GSAP pulava do início ao fim ao interpolar a string do `clip-path`. A classe `.revela` lê `--revela` (0 a 1), e é o número que se anima. Vale para títulos, logo, sistemas e a íris (`--iris`).
+- **Valores iniciais explícitos (`fromTo`).** Uma variável CSS vazia é lida como 0, e o `invalidateOnRefresh` regravava o início no meio da cena.
+- **`pinSpacing: true` explícito.** Dentro de um pai `flex`, o ScrollTrigger desliga o espaço do pin, e a cena seguinte subia por baixo do palco preso.
+- **`refreshPriority: -1`** nos gatilhos do Ponto, do contador de cena e das entradas: eles calculam depois dos pins.
+- **Grade sem colunas = `minmax(0, 1fr)`** (regra base): a coluna automática crescia até o botão mais largo e abria rolagem lateral no celular.
+- **Ponto final dentro da parte leve** do título: ele não cai mais sozinho na linha de baixo.
+
+### QA da Fase 3 (servidor local, Playwright)
+
+- Prints das 12 cenas em 1440 e 390 px, com e sem movimento reduzido: nenhum erro de console e nenhuma rolagem lateral.
+- Sequência da cena 5 presa conferida quadro a quadro (planilha, células voando, login, painel).
+- Tela verde conferida no desktop e no celular, com o cabeçalho fora de cena.
+
 ### Padrões assumidos enquanto o Vito não responde
 
 | # | Pergunta | Padrão em uso |

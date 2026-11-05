@@ -37,6 +37,8 @@ export function Filme() {
           trigger: el,
           start: "top 50%",
           end: "bottom 50%",
+          // Calcula depois das cenas presas (pins), que empurram as posições para baixo.
+          refreshPriority: -1,
           onToggle: (st) => st.isActive && trocar(el.dataset.cena ?? "00"),
         }),
       );

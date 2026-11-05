@@ -126,6 +126,11 @@
     background: var(--color-verde-lima);
     color: var(--color-grafite);
   }
+  /* Grade sem colunas definidas = uma coluna que não cresce além da tela
+     (a coluna automática crescia até o botão mais largo e abria rolagem lateral). */
+  [class~="grid"] {
+    grid-template-columns: minmax(0, 1fr);
+  }
   :focus-visible {
     outline: 2px solid var(--color-verde-lima);
     outline-offset: 3px;
@@ -149,6 +154,52 @@ html.abertura [data-logo-parte] {
 }
 html.abertura .ancora-ponto[data-ponto="heroi"] {
   visibility: hidden;
+}
+
+/*
+ * Máscara de revelação (src/motion/assinatura.ts): o GSAP anima só o número
+ * --revela (0 → 1) e o recorte sobe de baixo para cima. Interpolar a string
+ * do clip-path falhava (pulava do início ao fim).
+ */
+.revela {
+  clip-path: inset(calc((1 - var(--revela, 1)) * 100%) 0% 0% 0%);
+}
+
+/* Cena 9 · o cabeçalho (com o logo) sai de cena sobre a tela verde. */
+[data-cabecalho] {
+  transition: translate 0.3s var(--ease-saida);
+}
+html[data-tela-verde] [data-cabecalho] {
+  translate: 0 -100%;
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-cabecalho] {
+    transition: none;
+  }
+}
+
+/* Cena 5 · troca ADMIN / FUNCIONÁRIO sem JavaScript. */
+.sistema [data-so-funcionario] {
+  display: none;
+}
+.sistema:has(input[value="funcionario"]:checked) [data-so-admin] {
+  display: none;
+}
+.sistema:has(input[value="funcionario"]:checked) [data-so-funcionario] {
+  display: block;
+}
+
+/* Cena 5 · no desktop com movimento, os três quadros viram um palco só (AnimacaoSistemas). */
+[data-palco-sistemas][data-modo="filme"] [data-quadros] {
+  display: block;
+  position: relative;
+  height: min(70dvh, 560px);
+}
+[data-palco-sistemas][data-modo="filme"] [data-quadro] {
+  position: absolute;
+  inset: 0;
+  margin-inline: auto;
+  max-width: 560px;
 }
 
 /* Régua da linha do tempo (cena 8): range nativo, área de toque de 44 px. */

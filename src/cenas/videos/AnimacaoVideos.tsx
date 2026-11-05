@@ -2,7 +2,6 @@
 
 import { gsap, ScrollTrigger } from "@/motion/gsap";
 import { useCena } from "@/motion/usarCena";
-import { duasVozes } from "@/motion/assinatura";
 import { tempos } from "@/motion/curvas";
 
 /**
@@ -19,13 +18,8 @@ export function AnimacaoVideos() {
       if (ctx === "reduzido") return;
       const palco = secao.querySelector<HTMLElement>("[data-palco-videos]");
       const sala = secao.querySelector<HTMLElement>("[data-sala]");
-      const titulo = secao.querySelector("#titulo-videos");
       if (!palco || !sala) return;
-
-      if (titulo) {
-        const tl = duasVozes(titulo).pause();
-        ScrollTrigger.create({ trigger: titulo, start: "top 85%", once: true, onEnter: () => void tl.play() });
-      }
+      // O título da cena entra pela ilha comum (AnimacaoCenas).
 
       // A íris é uma variável numérica (0 → 1) lida pelo clip-path no CSS:
       // o GSAP interpola o número sem depender de parsear a string do círculo.
@@ -39,7 +33,7 @@ export function AnimacaoVideos() {
       if (ctx === "desktop") {
         gsap
           .timeline({
-            scrollTrigger: { trigger: palco, start: "center center", end: "+=120%", scrub: 0.6, pin: true, anticipatePin: 1 },
+            scrollTrigger: { trigger: palco, start: "center center", end: "+=120%", scrub: 0.6, pin: true, pinSpacing: true, anticipatePin: 1 },
           })
           .to(sala, { "--iris": 1, ease: "entrada", duration: 1 });
         return limpar;

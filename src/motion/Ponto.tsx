@@ -100,9 +100,11 @@ export function Ponto() {
 
       const gatilhos = ancoras.map((el) =>
         ScrollTrigger.create({
-          trigger: el.closest("[data-cena]") ?? el,
+          // [data-gatilho-ponto] permite um trecho menor que a cena (o fecho, dentro da cena 11).
+          trigger: el.closest("[data-gatilho-ponto]") ?? el.closest("[data-cena]") ?? el,
           start: "top 55%",
           end: "bottom 45%",
+          refreshPriority: -1, // depois das cenas presas (pins)
           onToggle: (st) => st.isActive && irPara(el),
         }),
       );

@@ -1,7 +1,7 @@
 "use client";
 
 import { gsap, useGSAP } from "@/motion/gsap";
-import { carimbo } from "@/motion/assinatura";
+import { carimbo, entradaMascara } from "@/motion/assinatura";
 import { abertura, tempos } from "@/motion/curvas";
 
 // O script que liga a classe `abertura` antes da pintura está em ./script.ts.
@@ -33,18 +33,8 @@ export function Abertura() {
 
     const tl = gsap.timeline({ onComplete: fim });
     tl.set([vito, dev, ponto], { autoAlpha: 1 })
-      .fromTo(
-        vito,
-        { yPercent: 40, clipPath: "inset(100% 0% 0% 0%)" },
-        { yPercent: 0, clipPath: "inset(0% 0% 0% 0%)", duration: tempos.entradaCurta },
-        tempos.duasVozes.pesada,
-      )
-      .fromTo(
-        dev,
-        { yPercent: 40, clipPath: "inset(100% 0% 0% 0%)" },
-        { yPercent: 0, clipPath: "inset(0% 0% 0% 0%)", duration: tempos.entradaCurta },
-        tempos.duasVozes.leve,
-      )
+      .add(entradaMascara(vito, { duration: tempos.entradaCurta }), tempos.duasVozes.pesada)
+      .add(entradaMascara(dev, { duration: tempos.entradaCurta }), tempos.duasVozes.leve)
       .add(carimbo(ponto), tempos.duasVozes.ponto)
       // O Ponto viajante (Ponto.tsx) sai do logo neste meio-tempo; a cena acaba quando ele chega.
       .to({}, { duration: 0.01 }, abertura.saidaDoLogo + abertura.viagem);

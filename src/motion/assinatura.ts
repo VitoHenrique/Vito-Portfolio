@@ -7,6 +7,10 @@ import { tempos } from "./curvas";
  * Assinatura de movimento da marca, igual à dos vídeos:
  * a parte pesada entra antes da leve, e o ponto carimba por último.
  * Movimento por máscara e deslocamento; fade puro não entra.
+ *
+ * A máscara usa a classe .revela (globals.css): o GSAP anima só o número
+ * --revela, e o CSS transforma isso no recorte. Interpolar a string do
+ * clip-path direto não era confiável.
  */
 
 /** Carimbo: 0 → 1,18 → 1 em 0,35 s. Só no ponto. */
@@ -20,13 +24,28 @@ export function carimbo(alvo: gsap.TweenTarget, atraso = 0) {
   return tl;
 }
 
-/** Entrada por máscara: o elemento sobe de dentro de um recorte. */
-export function entradaMascara(alvo: gsap.TweenTarget, vars: gsap.TweenVars = {}) {
+/** Prepara elementos para a máscara (liga a classe .revela). */
+export function mascarar(alvos: Element | Element[] | NodeListOf<Element>) {
+  const lista = alvos instanceof Element ? [alvos] : Array.from(alvos);
+  lista.forEach((el) => el.classList.add("revela"));
+  return lista;
+}
+
+/** Entrada por máscara: o elemento sobe de dentro do recorte. */
+export function entradaMascara(alvo: Element | Element[] | NodeListOf<Element>, vars: gsap.TweenVars = {}) {
+  const lista = mascarar(alvo);
   return gsap.fromTo(
-    alvo,
-    { yPercent: 110, clipPath: "inset(0% 0% 100% 0%)" },
-    { yPercent: 0, clipPath: "inset(0% 0% 0% 0%)", duration: tempos.entrada, ease: "entrada", ...vars },
+    lista,
+    { yPercent: 40, "--revela": 0 },
+    { yPercent: 0, "--revela": 1, duration: tempos.entrada, ease: "entrada", ...vars },
   );
+}
+
+/** Saída por máscara: sempre mais rápida que a entrada. */
+export function saidaMascara(alvo: Element | Element[] | NodeListOf<Element>, vars: gsap.TweenVars = {}) {
+  const lista = mascarar(alvo);
+  // fromTo: a variável começa vazia, e o GSAP a leria como 0.
+  return gsap.fromTo(lista, { "--revela": 1 }, { yPercent: -30, "--revela": 0, duration: tempos.saida, ease: "saida", ...vars });
 }
 
 /**

@@ -19,6 +19,10 @@ export const Rolagem = dynamic(() => import("./Rolagem").then((m) => m.Rolagem),
 
 /** Ilhas de cena da home. */
 export const Abertura = dynamic(() => import("@/cenas/abertura/Abertura").then((m) => m.Abertura), { ssr: false });
+export const AnimacaoCenas = dynamic(() => import("@/cenas/AnimacaoCenas").then((m) => m.AnimacaoCenas), { ssr: false });
+export const AnimacaoSistemas = dynamic(() => import("@/cenas/sistemas/AnimacaoSistemas").then((m) => m.AnimacaoSistemas), {
+  ssr: false,
+});
 export const AnimacaoVideos = dynamic(() => import("@/cenas/videos/AnimacaoVideos").then((m) => m.AnimacaoVideos), {
   ssr: false,
 });

@@ -6,8 +6,7 @@ import { BotaoWhatsApp } from "@/componentes/Botao";
 import { formatarReais, plano, totalEm12Meses, type IdPlano } from "@/conteudo/precos";
 
 /**
- * Cena 9 · Planos, versão estática da fatia vertical (Fase 2).
- * A tela verde e a comparação dos 12 meses animada entram na Fase 3.
+ * Cena 9 · Planos. Tela verde curta (uma vez só, sem logo) e corte para os cards.
  * Preços e itens: planos.json e vito-dev-contexto.md. No celular, o Pro vem primeiro.
  */
 const detalhes: Record<IdPlano, { paraQuem: string; itens: string[]; botao: string }> = {
@@ -51,12 +50,17 @@ const ordem: IdPlano[] = ["inicial", "pro", "sob-medida"];
 
 export function Planos() {
   return (
-    <section id="planos" data-cena="09" aria-labelledby="titulo-planos" className="relative px-3 py-6 md:px-6 md:py-[120px]">
-      <div className="mx-auto flex max-w-[1320px] flex-col gap-5">
-        <TituloDuasVozes id="titulo-planos" pesada="Site profissional" leve="sem susto no fim do mês" className="max-w-[18ch]" />
-        <p className="corpo max-w-[52ch] text-cinza-oliva">
-          Uma implantação e uma mensalidade fixa. Hospedagem, domínio e pequenas alterações inclusos.
-        </p>
+    <section id="planos" data-cena="09" aria-labelledby="titulo-planos" className="relative">
+      {/* A tela verde: uma vez só, no máximo uma altura de tela, sem logo (o cabeçalho sai de cena). */}
+      <div data-tela-verde className="flex min-h-[80svh] items-center bg-verde-lima px-3 py-6 md:min-h-[90svh] md:px-6">
+        <div className="mx-auto flex w-full max-w-[1320px] flex-col gap-4">
+          <TituloDuasVozes id="titulo-planos" pesada="Site profissional" leve="sem susto no fim do mês" sobreVerde className="max-w-[16ch]" />
+          <p className="corpo max-w-[46ch] text-grafite">
+            Uma implantação e uma mensalidade fixa. Hospedagem, domínio e pequenas alterações inclusos.
+          </p>
+        </div>
+      </div>
+      <div className="mx-auto flex max-w-[1320px] flex-col gap-5 px-3 py-6 md:px-6 md:py-[96px]">
         <ul className="grid gap-4 lg:grid-cols-3">
           {ordem.map((id) => {
             const p = plano(id);

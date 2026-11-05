@@ -2,8 +2,7 @@
 
 import { useRef, useState } from "react";
 import { gsap } from "@/motion/gsap";
-import { carimbo, duasVozes, entradaMascara } from "@/motion/assinatura";
-import { tempos } from "@/motion/curvas";
+import { carimbo, duasVozes, entradaMascara, saidaMascara } from "@/motion/assinatura";
 import { TituloDuasVozes } from "@/componentes/TituloDuasVozes";
 import { classeBotao } from "@/componentes/Botao";
 import { Rotulo } from "@/componentes/Rotulo";
@@ -36,7 +35,7 @@ export function LabMovimento() {
     if (demo === "saida")
       gsap
         .timeline()
-        .to(bloco, { yPercent: -110, clipPath: "inset(0% 0% 100% 0%)", duration: tempos.saida, ease: "saida" })
+        .add(saidaMascara(bloco))
         .set(bloco, { clearProps: "all" }, "+=0.4");
     if (demo === "carimbo") carimbo(ponto);
   };
