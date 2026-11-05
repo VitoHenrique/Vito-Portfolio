@@ -10,9 +10,9 @@ import { CarregarPerfil } from "./CarregarPerfil";
  * Social media aparece como "peças para redes" (padrão da pergunta 2):
  * a vito.dev cria as peças, sem prometer gestão de perfil.
  */
-export function Instagram() {
+export function Instagram({ cena = "07" }: { cena?: string }) {
   return (
-    <section id="instagram" data-cena="07" aria-labelledby="titulo-instagram" className="relative px-3 py-6 md:px-6 md:py-[120px]">
+    <section id="instagram" data-cena={cena} aria-labelledby="titulo-instagram" className="relative px-3 py-6 md:px-6 md:py-[120px]">
       <div className="mx-auto grid max-w-[1320px] items-center gap-5 md:grid-cols-[1fr_auto] md:gap-6">
         <div className="flex flex-col gap-4">
           <TituloDuasVozes id="titulo-instagram" pesada="Sua marca" leve="no feed" className="max-w-[10ch]" />

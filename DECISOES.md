@@ -201,6 +201,44 @@ O PageSpeed Insights sem chave respondeu 429 (cota esgotada). A medição foi fe
 - Sequência da cena 5 presa conferida quadro a quadro (planilha, células voando, login, painel).
 - Tela verde conferida no desktop e no celular, com o cabeçalho fora de cena.
 
+## Revisão do Vito (05/11/2026): estrutura por interesse
+
+### O que o Vito pediu
+
+1. Indicador de "carregando" na corrida (a tela ficava só preta).
+2. Tirar a ilha do topo dos celulares: só as bordas.
+3. Ilustração dos quatro serviços animada.
+4. Consertar o celular de "Veja o seu antes de contratar".
+5. A home demorava a chegar no que importa: apresentar primeiro e deixar os exemplos para depois, com um "ver exemplos" no topo.
+6. **Prazo corrigido:** o site fica no ar em poucas horas depois do pagamento; com demanda alta, em no máximo 5 dias. Não é "5 a 20 dias".
+7. Em vez de uma landing page só: "Qual o seu interesse?" e uma página para cada serviço.
+
+### Pesquisa e decisão de estrutura
+
+- Skill `ui-ux-pro-max`: o site mistura prestador de serviço (WhatsApp sempre à mão), portfólio (mostrar o trabalho com pouco texto antes) e página de venda (dor, prova, oferta, objeção, chamada).
+- Na pesquisa (fontes de agências e blogs de CRO, sem estudo controlado):
+  - deixar o visitante se identificar cedo, com caminhos por serviço perto do topo;
+  - dar uma saída para quem ainda não sabe;
+  - manter uma ação principal só;
+  - ter páginas de serviço, que também servem ao Google;
+  - um caso contra: muitos caminhos na home pioraram a conversão, então são 4 caminhos claros e uma única ação, o WhatsApp.
+- **Estrutura nova:**
+  - **Home (`/`)**: carimbo, herói ("Ver exemplos" leva aos caminhos), "Do que você precisa?" (4 caminhos + "Ainda não sabe? Me conta o seu negócio"), como funciona com o Vito, planos (tela verde) e perguntas com o fecho.
+  - **`/sites`**: herói, corrida, monte o seu, planos (sem tela verde), FAQ e fecho.
+  - **`/sistemas`**: herói, planilha que vira sistema (pin), fecho.
+  - **`/identidade-visual`**: herói, identidade (anatomia, antes e depois, aplicações), Instagram, fecho.
+  - **`/videos`**: herói, sala de cinema completa, fecho.
+  - Toda página de serviço termina com "Conheça também" (os outros 3). O menu tem os 4 serviços e Planos. No celular, um `<details>` sem JavaScript.
+- Cada página tem título, descrição e canonical próprios. A numeração das cenas recomeça em cada página.
+
+### Outras decisões
+
+- **WhatsApp flutuante removido:** cobria conteúdo (o celular da prévia, cards, textos), o que o próprio briefing proíbe, e o cabeçalho fixo já mostra "Chamar no WhatsApp" o tempo todo.
+- **Indicador de carregando em CSS** (`.girando`): é sinal de estado, não animação de cena. Com movimento reduzido, para.
+- **Prazo em `site.ts` (`prazo`)**, aplicado na descrição do site, no FAQ, no processo, na conversa simulada, em "monte o seu" e na lista de serviços. A conversa simulada passou a dizer "baseada nas mensagens que eu uso", porque a mensagem de prazo foi atualizada.
+- **Os posts do Instagram ficam como foram publicados** (eles dizem "até 5 dias úteis"). Pendente para o Vito: atualizar `/prazo` e `/pro` no WhatsApp Business, e o `vito-dev-contexto.md`.
+- **`next/link` na navegação interna:** a troca de página fica instantânea. Cada página monta e desmonta o próprio Ponto e as próprias animações.
+
 ### Padrões assumidos enquanto o Vito não responde
 
 | # | Pergunta | Padrão em uso |

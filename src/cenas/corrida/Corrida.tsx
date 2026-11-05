@@ -8,9 +8,9 @@ import { CorridaInterativa } from "./CorridaInterativa";
  * É uma simulação e diz isso na tela. O teste com o link do visitante entra
  * na Fase 4, quando houver a chave da API do PageSpeed.
  */
-export function Corrida() {
+export function Corrida({ cena = "02" }: { cena?: string }) {
   return (
-    <section id="corrida" data-cena="02" aria-labelledby="titulo-corrida" className="relative px-3 py-6 md:px-6 md:py-[120px]">
+    <section id="corrida" data-cena={cena} aria-labelledby="titulo-corrida" className="relative px-3 py-6 md:px-6 md:py-[120px]">
       <div className="mx-auto grid max-w-[1320px] gap-5 lg:grid-cols-[1fr_1.1fr] lg:items-center lg:gap-6">
         <div className="relative flex flex-col gap-4">
           <TituloDuasVozes id="titulo-corrida" pesada="Cada segundo" leve="custa cliente" className="max-w-[12ch]" />

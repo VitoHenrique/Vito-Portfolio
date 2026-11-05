@@ -11,7 +11,7 @@ import { Marcador } from "@/componentes/Marcador";
 const etapas = [
   { nome: "Entender o negócio", texto: "Uma conversa pelo WhatsApp ou por vídeo. Você me conta o que faz, para quem e o que precisa." },
   { nome: "Prototipar", texto: "Eu mostro como o site vai ficar antes de construir. Você aprova ou pede ajustes." },
-  { nome: "Desenvolver", texto: "Construo em código, com o seu conteúdo. A página única fica pronta em até 5 dias úteis depois do material." },
+  { nome: "Desenvolver", texto: "Construo em código, com o seu conteúdo. O site fica pronto em poucas horas depois do pagamento; com demanda alta, em no máximo 5 dias." },
   { nome: "Colocar no ar", texto: "Domínio, hospedagem e tudo configurado. Depois disso, as pequenas alterações seguem inclusas." },
 ];
 
@@ -26,13 +26,13 @@ const conversa = [
   {
     de: "vito",
     texto:
-      "O site de uma página fica no ar em até 5 dias úteis depois que você me manda o material. O site completo leva em média de 5 a 20 dias. Tudo combinado antes de começar.",
+      "Seu site fica no ar em poucas horas depois do pagamento. Se a demanda estiver alta, em no máximo 5 dias. Tudo combinado antes de começar.",
   },
 ] as const;
 
-export function Processo() {
+export function Processo({ cena = "10" }: { cena?: string }) {
   return (
-    <section id="como-funciona" data-cena="10" aria-labelledby="titulo-processo" className="relative px-3 py-6 md:px-6 md:py-[120px]">
+    <section id="como-funciona" data-cena={cena} aria-labelledby="titulo-processo" className="relative px-3 py-6 md:px-6 md:py-[120px]">
       <div className="mx-auto flex max-w-[1320px] flex-col gap-6 md:gap-[96px]">
         <div className="flex flex-col gap-5">
           <TituloDuasVozes id="titulo-processo" pesada="Do material ao ar" leve="em 4 etapas" className="max-w-[12ch]" />
@@ -77,8 +77,7 @@ export function Processo() {
           <div className="flex flex-col gap-3">
             <h3 className="subtitulo">Como é falar comigo</h3>
             <p className="corpo max-w-[44ch] text-cinza-oliva">
-              Estas são as mensagens que eu uso de verdade no WhatsApp. A conversa é uma simulação; o atendimento é
-              comigo.
+              Baseada nas mensagens que eu uso no WhatsApp. A conversa é uma simulação; o atendimento é comigo.
             </p>
             <Rotulo>Simulação</Rotulo>
           </div>

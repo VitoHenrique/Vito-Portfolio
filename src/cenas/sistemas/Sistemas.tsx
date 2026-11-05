@@ -20,9 +20,9 @@ const celulas = [
 ];
 const ehErro = (v: string) => v.startsWith("#") || v === "??";
 
-export function Sistemas() {
+export function Sistemas({ cena = "05" }: { cena?: string }) {
   return (
-    <section id="sistemas" data-cena="05" aria-labelledby="titulo-sistemas" className="sistema relative px-3 py-6 md:px-6 md:py-[120px]">
+    <section id="sistemas" data-cena={cena} aria-labelledby="titulo-sistemas" className="sistema relative px-3 py-6 md:px-6 md:py-[120px]">
       <div className="mx-auto flex max-w-[1320px] flex-col gap-5">
         <TituloDuasVozes id="titulo-sistemas" pesada="Sua planilha" leve="pode virar sistema" className="max-w-[14ch]" />
         <p className="corpo max-w-[50ch] text-cinza-oliva">

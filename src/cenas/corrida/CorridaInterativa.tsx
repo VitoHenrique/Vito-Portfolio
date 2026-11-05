@@ -15,28 +15,56 @@ const RAPIDO_PADRAO_S = 1.0;
 
 type Estado = "parado" | "correndo" | "fim";
 
-function TelaSite({ progresso, cor, pronto }: { progresso: number; cor: "coral" | "lima"; pronto: boolean }) {
+/** O símbolo de "carregando": um anel com um arco que gira (parado com movimento reduzido). */
+function Carregando({ cor }: { cor: "coral" | "lima" }) {
   return (
-    <div className="flex h-full flex-col gap-3 px-4 pb-4 pt-12">
+    <div className="flex flex-col items-center gap-3" role="status">
+      <svg viewBox="0 0 40 40" className="girando size-10" aria-hidden>
+        <circle cx="20" cy="20" r="16" fill="none" stroke="var(--color-linha)" strokeWidth="4" />
+        <path
+          d="M20 4a16 16 0 0 1 16 16"
+          fill="none"
+          stroke={cor === "coral" ? "var(--color-coral)" : "var(--color-verde-lima)"}
+          strokeWidth="4"
+          strokeLinecap="round"
+        />
+      </svg>
+      <span className="rotulo !text-[11px] text-cinza-oliva">Carregando</span>
+    </div>
+  );
+}
+
+function TelaSite({ progresso, cor, pronto, estado }: { progresso: number; cor: "coral" | "lima"; pronto: boolean; estado: Estado }) {
+  return (
+    <div className="flex h-full flex-col gap-3 px-4 pb-4 pt-4">
+      {/* Barra de endereço do navegador, com o progresso da página */}
+      <div className="flex items-center gap-2 rounded-pill border border-linha px-3 py-1.5">
+        <span className="size-1.5 rounded-pill bg-cinza-oliva" aria-hidden />
+        <span className="truncate text-[10px] text-cinza-oliva">barbeariadobairro.com.br</span>
+      </div>
       <div className="h-1 w-full overflow-hidden rounded-pill bg-grafite-claro">
         <div
           className={`h-full origin-left rounded-pill ${cor === "coral" ? "bg-coral" : "bg-verde-lima"}`}
           style={{ transform: `scaleX(${progresso})` }}
         />
       </div>
-      <div className={`flex flex-1 flex-col gap-3 ${pronto ? "" : "opacity-0"}`} aria-hidden={!pronto}>
-        <div className="aspect-[4/3] rounded-sm bg-grafite-claro" />
-        <p className="subtitulo !text-lg">Barbearia do Bairro</p>
-        <p className="corpo-pequeno text-cinza-oliva">Corte e barba com hora marcada.</p>
-        <span className="mt-auto rounded-pill bg-giz py-3 text-center text-sm font-semibold text-grafite">
-          Chamar no WhatsApp
-        </span>
-      </div>
-      {!pronto && progresso > 0 && (
-        <div className="flex flex-1 flex-col gap-3" aria-hidden>
-          <div className="aspect-[4/3] rounded-sm border border-linha" />
-          <div className="h-4 w-2/3 rounded-sm border border-linha" />
-          <div className="h-3 w-1/2 rounded-sm border border-linha" />
+      {pronto ? (
+        <div className="flex flex-1 flex-col gap-3">
+          <div className="aspect-[4/3] rounded-sm bg-grafite-claro" />
+          <p className="subtitulo !text-lg">Barbearia do Bairro</p>
+          <p className="corpo-pequeno text-cinza-oliva">Corte e barba com hora marcada.</p>
+          <span className="mt-auto rounded-pill bg-giz py-3 text-center text-sm font-semibold text-grafite">
+            Chamar no WhatsApp
+          </span>
+        </div>
+      ) : estado === "parado" ? (
+        <div className="flex flex-1 flex-col items-center justify-center gap-2 text-center">
+          <span className="corpo-pequeno text-cinza-oliva">Pronto para abrir</span>
+          <span className="rotulo !text-[11px] text-cinza-oliva">Toque em disparar</span>
+        </div>
+      ) : (
+        <div className="flex flex-1 items-center justify-center">
+          <Carregando cor={cor} />
         </div>
       )}
     </div>
@@ -103,7 +131,7 @@ export function CorridaInterativa() {
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <figure className={`flex flex-col items-center gap-3 ${lado === "lento" ? "" : "hidden md:flex"}`}>
           <Celular rotulo="Site lento carregando" className="w-[220px]">
-            <TelaSite progresso={p(LENTO_S)} cor="coral" pronto={lentoPronto} />
+            <TelaSite progresso={p(LENTO_S)} cor="coral" pronto={lentoPronto} estado={estado} />
           </Celular>
           <figcaption className="flex flex-col items-center gap-1">
             <Rotulo tom="coral" as="span">
@@ -114,7 +142,7 @@ export function CorridaInterativa() {
         </figure>
         <figure className={`flex flex-col items-center gap-3 ${lado === "rapido" ? "" : "hidden md:flex"}`}>
           <Celular rotulo="Site rápido carregando" className="w-[220px]">
-            <TelaSite progresso={p(rapido)} cor="lima" pronto={rapidoPronto} />
+            <TelaSite progresso={p(rapido)} cor="lima" pronto={rapidoPronto} estado={estado} />
           </Celular>
           <figcaption className="flex flex-col items-center gap-1">
             <Rotulo tom="lima" as="span">

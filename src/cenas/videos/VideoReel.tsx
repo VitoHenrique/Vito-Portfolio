@@ -64,7 +64,7 @@ export function VideoReel({ src, poster, legendas, titulo }: Props) {
         type="button"
         onClick={alternarSom}
         aria-pressed={!mudo}
-        className="rotulo absolute right-3 top-12 z-10 min-h-11 rounded-pill bg-grafite px-4 text-giz"
+        className="rotulo absolute right-3 top-4 z-10 min-h-11 rounded-pill bg-grafite px-4 text-giz"
       >
         Som: {mudo ? "ligar" : "desligar"}
       </button>

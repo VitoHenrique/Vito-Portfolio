@@ -37,12 +37,14 @@ export function Heroi() {
         </p>
         <div className="flex flex-wrap items-center gap-3 pt-1">
           <BotaoWhatsApp origem="heroi" />
-          <Botao variante="secundario" href="#planos">
-            Ver planos
+          <Botao variante="secundario" href="#servicos">
+            Ver exemplos
           </Botao>
+          <a href="#planos" className="corpo-pequeno inline-flex min-h-11 items-center px-2 text-cinza-oliva underline-offset-4 hover:text-giz hover:underline">
+            Ver planos
+          </a>
         </div>
       </div>
-      <span data-heroi-fim aria-hidden className="absolute bottom-0 left-0 h-px w-px" />
     </section>
   );
 }

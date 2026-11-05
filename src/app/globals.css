@@ -165,6 +165,22 @@ html.abertura .ancora-ponto[data-ponto="heroi"] {
   clip-path: inset(calc((1 - var(--revela, 1)) * 100%) 0% 0% 0%);
 }
 
+/* Indicador de "carregando" (corrida): giro contínuo. É sinal de estado, não
+   animação de cena, por isso fica no CSS; com movimento reduzido, para. */
+@keyframes girar {
+  to {
+    rotate: 360deg;
+  }
+}
+.girando {
+  animation: girar 0.9s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .girando {
+    animation: none;
+  }
+}
+
 /* Cena 9 · o cabeçalho (com o logo) sai de cena sobre a tela verde. */
 [data-cabecalho] {
   transition: translate 0.3s var(--ease-saida);

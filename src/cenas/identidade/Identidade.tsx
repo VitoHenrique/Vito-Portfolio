@@ -11,9 +11,9 @@ import { Aplicacoes } from "./Aplicacoes";
  * Sem preço: "Pedir orçamento" abre o WhatsApp. Casos de clientes só
  * entram depois de autorizados (casos.ts).
  */
-export function Identidade() {
+export function Identidade({ cena = "06" }: { cena?: string }) {
   return (
-    <section id="identidade" data-cena="06" aria-labelledby="titulo-identidade" className="relative px-3 py-6 md:px-6 md:py-[120px]">
+    <section id="identidade" data-cena={cena} aria-labelledby="titulo-identidade" className="relative px-3 py-6 md:px-6 md:py-[120px]">
       <div className="mx-auto flex max-w-[1320px] flex-col gap-6 md:gap-[96px]">
         <div className="flex flex-col gap-4">
           <TituloDuasVozes id="titulo-identidade" pesada="Uma marca só," leve="em todo lugar" className="max-w-[13ch]" />

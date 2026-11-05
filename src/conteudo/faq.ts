@@ -12,7 +12,7 @@ export const faq: { pergunta: string; resposta: string }[] = [
   {
     pergunta: "Em quanto tempo meu site fica pronto?",
     resposta:
-      "A página única fica no ar em até 5 dias úteis depois que eu recebo o material. O site institucional leva de 5 a 20 dias, dependendo do conteúdo. O prazo é combinado antes de começar.",
+      "Seu site fica no ar em poucas horas depois do pagamento. Em período de demanda alta, leva no máximo 5 dias. O prazo é combinado antes de começar.",
   },
   {
     pergunta: "Você usa WordPress ou Wix?",

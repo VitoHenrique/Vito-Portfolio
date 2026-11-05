@@ -48,18 +48,28 @@ const detalhes: Record<IdPlano, { paraQuem: string; itens: string[]; botao: stri
 
 const ordem: IdPlano[] = ["inicial", "pro", "sob-medida"];
 
-export function Planos() {
+/** telaVerde: o momento verde acontece uma vez só, na home. Nas outras páginas, título normal. */
+export function Planos({ cena = "09", telaVerde = true }: { cena?: string; telaVerde?: boolean }) {
   return (
-    <section id="planos" data-cena="09" aria-labelledby="titulo-planos" className="relative">
+    <section id="planos" data-cena={cena} aria-labelledby="titulo-planos" className="relative">
       {/* A tela verde: uma vez só, no máximo uma altura de tela, sem logo (o cabeçalho sai de cena). */}
-      <div data-tela-verde className="flex min-h-[80svh] items-center bg-verde-lima px-3 py-6 md:min-h-[90svh] md:px-6">
-        <div className="mx-auto flex w-full max-w-[1320px] flex-col gap-4">
-          <TituloDuasVozes id="titulo-planos" pesada="Site profissional" leve="sem susto no fim do mês" sobreVerde className="max-w-[16ch]" />
-          <p className="corpo max-w-[46ch] text-grafite">
+      {telaVerde ? (
+        <div data-tela-verde className="flex min-h-[80svh] items-center bg-verde-lima px-3 py-6 md:min-h-[90svh] md:px-6">
+          <div className="mx-auto flex w-full max-w-[1320px] flex-col gap-4">
+            <TituloDuasVozes id="titulo-planos" pesada="Site profissional" leve="sem susto no fim do mês" sobreVerde className="max-w-[16ch]" />
+            <p className="corpo max-w-[46ch] text-grafite">
+              Uma implantação e uma mensalidade fixa. Hospedagem, domínio e pequenas alterações inclusos.
+            </p>
+          </div>
+        </div>
+      ) : (
+        <div className="mx-auto flex max-w-[1320px] flex-col gap-4 px-3 pt-6 md:px-6 md:pt-[120px]">
+          <TituloDuasVozes id="titulo-planos" pesada="Site profissional" leve="sem susto no fim do mês" className="max-w-[16ch]" />
+          <p className="corpo max-w-[46ch] text-cinza-oliva">
             Uma implantação e uma mensalidade fixa. Hospedagem, domínio e pequenas alterações inclusos.
           </p>
         </div>
-      </div>
+      )}
       <div className="mx-auto flex max-w-[1320px] flex-col gap-5 px-3 py-6 md:px-6 md:py-[96px]">
         <ul className="grid gap-4 lg:grid-cols-3">
           {ordem.map((id) => {

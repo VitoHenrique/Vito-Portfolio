@@ -1,55 +1,25 @@
-import { Cabecalho } from "@/componentes/Cabecalho";
-import { Rodape } from "@/componentes/Rodape";
-import { WhatsAppFlutuante } from "@/componentes/WhatsAppFlutuante";
-import { Atalhos } from "@/componentes/Atalhos";
+import { Moldura } from "@/componentes/Moldura";
 import { Heroi } from "@/cenas/heroi/Heroi";
-import { Corrida } from "@/cenas/corrida/Corrida";
 import { Oficios } from "@/cenas/oficios/Oficios";
-import { Sites } from "@/cenas/sites/Sites";
-import { Sistemas } from "@/cenas/sistemas/Sistemas";
-import { Identidade } from "@/cenas/identidade/Identidade";
-import { Instagram } from "@/cenas/instagram/Instagram";
-import { Videos } from "@/cenas/videos/Videos";
-import { Planos } from "@/cenas/planos/Planos";
 import { Processo } from "@/cenas/processo/Processo";
+import { Planos } from "@/cenas/planos/Planos";
 import { Fecho } from "@/cenas/fecho/Fecho";
-import { Abertura, AnimacaoCenas, AnimacaoSistemas, AnimacaoVideos, Filme, Ponto } from "@/motion/Motor";
-
-/** O rótulo do reel muda sozinho no dia da estreia (06/11) sem novo deploy. */
-export const revalidate = 3600;
+import { Abertura } from "@/motion/Motor";
 
 /**
- * Home: um filme em plano-sequência de 12 cenas (0 a 11), com o Ponto como
- * único ator. Cada cena tem o conteúdo no HTML do servidor e uma ilha de
- * animação que chega depois. Casos reais entram entre Vídeos e Planos quando
- * houver projetos autorizados (casos.ts vazio: a cena não aparece).
+ * Home curta: o visitante conhece, escolhe o interesse e fecha.
+ * 0 carimbo · 1 herói · 2 "Do que você precisa?" (leva às páginas de cada
+ * serviço, com os exemplos) · 3 como funciona e o Vito · 4 planos (tela verde)
+ * · 5 perguntas e fecho. Uma ação principal em tudo: o WhatsApp.
  */
 export default function Home() {
   return (
-    <>
-      <Ponto />
-      <Filme />
-      <Abertura />
-      <AnimacaoCenas />
-      <AnimacaoSistemas />
-      <AnimacaoVideos />
-      <Atalhos />
-      <Cabecalho />
-      <main id="conteudo" className="relative z-10">
-        <Heroi />
-        <Corrida />
-        <Oficios />
-        <Sites />
-        <Sistemas />
-        <Identidade />
-        <Instagram />
-        <Videos />
-        <Planos />
-        <Processo />
-        <Fecho />
-      </main>
-      <Rodape />
-      <WhatsAppFlutuante />
-    </>
+    <Moldura ilhas={<Abertura />}>
+      <Heroi />
+      <Oficios cena="02" />
+      <Processo cena="03" />
+      <Planos cena="04" />
+      <Fecho cena="05" />
+    </Moldura>
   );
 }

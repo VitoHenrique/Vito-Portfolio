@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useState } from "react";
+import { useId, useState, type ReactNode } from "react";
 import { Celular } from "@/componentes/Celular";
 import { Rotulo } from "@/componentes/Rotulo";
 import { ListaMarcada } from "@/componentes/Marcador";
@@ -21,7 +21,8 @@ const tipos = {
 } as const;
 type Tipo = keyof typeof tipos;
 
-export function MonteOSeu() {
+/** `topo`: título e texto da cena, na mesma coluna do formulário (o celular fica ao lado deles). */
+export function MonteOSeu({ topo }: { topo?: ReactNode }) {
   const [nome, setNome] = useState("");
   const [tipo, setTipo] = useState<Tipo>("barbearia");
   const idNome = useId();
@@ -29,8 +30,9 @@ export function MonteOSeu() {
   const negocio = limparNomeNegocio(nome) || `Sua ${t.nome.toLowerCase()}`;
 
   return (
-    <div className="grid items-start gap-5 md:grid-cols-[1fr_auto] md:gap-6">
+    <div className="grid items-start gap-5 md:grid-cols-[1fr_auto] md:gap-6 lg:grid-cols-[minmax(0,560px)_1fr]">
       <form className="flex flex-col gap-5" onSubmit={(e) => e.preventDefault()} data-evento="previa_montada">
+        {topo}
         <div className="flex flex-col gap-2">
           <label htmlFor={idNome} className="rotulo text-cinza-oliva">
             Nome do seu negócio
@@ -62,37 +64,45 @@ export function MonteOSeu() {
         </fieldset>
         <ListaMarcada
           className="corpo-pequeno text-cinza-oliva"
-          itens={["Página única no ar em até 5 dias úteis", "Botão de WhatsApp, mapa e hospedagem inclusos", "Seu conteúdo de verdade entra no lugar do exemplo"]}
+          itens={["No ar em poucas horas depois do pagamento", "Botão de WhatsApp, mapa e hospedagem inclusos", "Seu conteúdo de verdade entra no lugar do exemplo"]}
         />
         <BotaoWhatsApp origem="previa" pedido={{ tipo: "previa", negocio: nome }} className="self-start !whitespace-normal text-center">
           Enviar esta prévia pelo WhatsApp
         </BotaoWhatsApp>
       </form>
 
-      <div className="flex flex-col items-center gap-3">
-        <Celular rotulo={`Prévia do site de ${negocio}`} className="w-[260px] md:w-[290px]">
-          <div className="flex h-full flex-col overflow-y-auto pb-4 pt-11" aria-live="polite">
-            <div className="flex items-center justify-between px-4 pb-3">
-              <span className="text-sm font-extrabold tracking-[-0.02em]">{negocio}</span>
-              <span className="size-2 rounded-pill bg-verde-lima" aria-hidden />
+      <div className="flex flex-col items-center gap-3 md:sticky md:top-[96px] lg:justify-self-center">
+        <Celular rotulo={`Prévia do site de ${negocio}`} className="w-[270px] md:w-[300px]">
+          {/* Um site de uma página inteiro, sem rolagem: cabeçalho, capa, serviços, mapa e o botão fixo. */}
+          <div className="flex h-full flex-col" aria-live="polite">
+            <div className="flex items-center justify-between border-b border-linha px-4 py-3">
+              <span className="truncate pr-2 text-[13px] font-extrabold tracking-[-0.02em]">{negocio}</span>
+              <span className="flex flex-col gap-[3px]" aria-hidden>
+                <span className="block h-px w-4 bg-giz" />
+                <span className="block h-px w-4 bg-giz" />
+              </span>
             </div>
-            <div className="mx-4 flex aspect-[4/3] items-end rounded-sm border border-linha bg-grafite-claro p-3">
-              <span className="rotulo !text-[10px] text-cinza-oliva">Foto do seu negócio</span>
+            <div className="flex flex-1 flex-col gap-3 overflow-hidden px-4 pt-4">
+              <div className="relative flex aspect-[16/10] shrink-0 items-end overflow-hidden rounded-sm bg-grafite-claro p-3">
+                <span aria-hidden className="absolute -right-6 -top-6 size-20 rounded-pill border border-linha" />
+                <span className="rotulo !text-[9px] text-cinza-oliva">Foto do seu negócio</span>
+              </div>
+              <p className="break-words text-[22px] font-extrabold leading-[1.05] tracking-[-0.03em]">{negocio}</p>
+              <p className="text-[12px] leading-snug text-cinza-oliva">{t.chamada}</p>
+              <ul className="grid grid-cols-3 gap-1.5">
+                {t.itens.map((i) => (
+                  <li key={i} className="flex min-h-12 items-end rounded-sm border border-linha p-2 text-[10px] leading-tight">
+                    {i}
+                  </li>
+                ))}
+              </ul>
+              <div className="flex items-center gap-2 rounded-sm border border-linha p-2">
+                <span aria-hidden className="size-6 shrink-0 rounded-sm bg-grafite-claro" />
+                <span className="text-[10px] leading-tight text-cinza-oliva">Mapa, Waze e horário de atendimento</span>
+              </div>
             </div>
-            <div className="flex flex-col gap-2 px-4 pt-4">
-              <p className="text-xl font-extrabold leading-tight tracking-[-0.02em]">{negocio}</p>
-              <p className="corpo-pequeno !text-[13px] text-cinza-oliva">{t.chamada}</p>
-              <span className="mt-2 rounded-pill bg-giz py-2.5 text-center text-[13px] font-semibold text-grafite">{t.botao}</span>
-            </div>
-            <ul className="mt-4 flex flex-col gap-2 px-4">
-              {t.itens.map((i) => (
-                <li key={i} className="flex items-center justify-between rounded-sm border border-linha px-3 py-2 text-[13px]">
-                  {i} <span className="size-1.5 rounded-pill bg-verde-lima" aria-hidden />
-                </li>
-              ))}
-            </ul>
-            <div className="mx-4 mt-4 flex h-20 items-center justify-center rounded-sm border border-linha">
-              <span className="rotulo !text-[10px] text-cinza-oliva">Mapa e horário</span>
+            <div className="p-3">
+              <span className="block rounded-pill bg-giz py-2.5 text-center text-[12px] font-semibold text-grafite">{t.botao}</span>
             </div>
           </div>
         </Celular>

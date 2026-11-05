@@ -17,10 +17,10 @@ const reelPublicado = () => Date.now() >= new Date(`${flags.reelPublicadoEm}T18:
  * Tudo que é texto e o reel estão no HTML; a parte interativa (Remotion)
  * só carrega quando a cena se aproxima.
  */
-export function Videos() {
+export function Videos({ cena = "08" }: { cena?: string }) {
   const publicado = reelPublicado();
   return (
-    <section id="videos" data-cena="08" aria-labelledby="titulo-videos" className="relative px-3 md:px-6">
+    <section id="videos" data-cena={cena} aria-labelledby="titulo-videos" className="relative px-3 md:px-6">
       <div className="mx-auto flex max-w-[1320px] flex-col gap-4 pb-6 pt-[120px] md:gap-5 md:pt-[160px]">
         <Rotulo tom="lima">Vídeos e animações</Rotulo>
         <TituloDuasVozes id="titulo-videos" pesada="Seu vídeo" leve="com a cara da sua marca" className="max-w-[16ch]" />

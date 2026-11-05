@@ -67,7 +67,7 @@ function Story({ destaque, fechar }: { destaque: Destaque; fechar: () => void })
 
   return (
     <div role="dialog" aria-modal="true" aria-label={`Destaque ${destaque.nome}, story ${i + 1} de ${total}`} className="fixed inset-0 z-50 flex flex-col bg-grafite md:absolute md:rounded-[34px]">
-      <div className="flex gap-1 px-3 pt-[max(12px,env(safe-area-inset-top))] md:pt-10">
+      <div className="flex gap-1 px-3 pt-[max(12px,env(safe-area-inset-top))] md:pt-5">
         {destaque.stories.map((_, k) => (
           <span key={k} className="h-0.5 flex-1 overflow-hidden rounded-pill bg-linha">
             <span className="block h-full origin-left bg-giz" style={{ transform: `scaleX(${k < i ? 1 : k === i ? progresso : 0})` }} />
@@ -111,7 +111,7 @@ function PostAberto({ post, fechar }: { post: Post; fechar: () => void }) {
 
   return (
     <div role="dialog" aria-modal="true" aria-label="Post do @vitodev.oficial" className="fixed inset-0 z-50 flex flex-col overflow-y-auto bg-grafite md:absolute md:rounded-[34px]">
-      <div className="flex items-center justify-between px-3 pb-2 pt-[max(12px,env(safe-area-inset-top))] md:pt-10">
+      <div className="flex items-center justify-between px-3 pb-2 pt-[max(12px,env(safe-area-inset-top))] md:pt-4">
         <span className="corpo-pequeno font-semibold">vitodev.oficial</span>
         <button type="button" onClick={fechar} className="corpo-pequeno min-h-11 px-2 text-cinza-oliva">
           Fechar
@@ -184,8 +184,7 @@ export function PerfilSimulado() {
 
   return (
     <div className="relative h-full">
-      {/* pt-16: abaixo do recorte do topo da moldura do celular */}
-      <div className="h-full overflow-y-auto pt-16 [scrollbar-width:none]">
+      <div className="h-full overflow-y-auto pt-6 [scrollbar-width:none]">
       <div className="flex items-center gap-4 px-4">
         <Imagem base="/marca/aplicacoes/instagram-perfil" alt="Foto de perfil: o símbolo da vito.dev" className="size-16 shrink-0 rounded-pill object-cover" prioridade />
         <div className="flex flex-col">
