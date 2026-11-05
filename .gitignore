@@ -42,7 +42,9 @@ next-env.d.ts
 
 .vercel
 
-# fora do Git: briefing privado e skills locais
+# briefing privado (textos de venda), fora do repositório público
 /_briefing/
+
+# skills instaladas localmente (reinstalar com: npx skills add remotion-dev/skills)
 /.claude/skills/
 /.agents/
