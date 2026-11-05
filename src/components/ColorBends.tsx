@@ -144,6 +144,9 @@ export default function ColorBends({
         const container = containerRef.current;
         if (!container) return;
 
+        // Disable on mobile
+        if (typeof window !== 'undefined' && window.innerWidth < 768) return;
+
         const scene = new THREE.Scene();
         const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
 

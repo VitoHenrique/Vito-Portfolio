@@ -1,6 +1,7 @@
 'use client';
-import { Github, Linkedin, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import TextType from './TextType';
 
 export default function Footer() {
@@ -29,24 +30,24 @@ export default function Footer() {
                 </h2>
 
                 <div className="flex flex-col md:flex-row items-center justify-center gap-6 mb-16">
-                    <button className="px-8 py-4 rounded-full bg-foreground text-background font-bold hover:scale-105 transition-transform duration-300 flex items-center gap-2 cursor-pointer">
-                        Solicitar Orçamento via WhatsApp
-                        <ArrowRight className="w-4 h-4" />
-                    </button>
+                    <Link href="http://wa.me/5521959020656" target="_blank">
+                        <button className="px-8 py-4 rounded-full bg-foreground text-background font-bold hover:scale-105 transition-transform duration-300 flex items-center gap-2 cursor-pointer">
+                            Solicitar Orçamento via WhatsApp
+                            <ArrowRight className="w-4 h-4" />
+                        </button>
+                    </Link>
                 </div>
 
-                <div className="flex items-center justify-between pt-8 border-t border-white/5 text-sm text-secondary">
-                    <div className="font-mono">
-                        vito<span className="text-brand-a">.</span>dev © {new Date().getFullYear()}. Code never lies. Feito em São José do Rio Preto, SP.
-                    </div>
-
-                    <div className="flex items-center gap-6">
-                        <Link href="https://github.com" target="_blank" className="hover:text-foreground transition-colors">
-                            <Github className="w-5 h-5" />
-                        </Link>
-                        <Link href="https://linkedin.com" target="_blank" className="hover:text-foreground transition-colors">
-                            <Linkedin className="w-5 h-5" />
-                        </Link>
+                <div className="flex items-center justify-center pt-8 border-t border-white/5 text-sm text-secondary">
+                    <div className="flex items-center gap-2 font-mono">
+                        <Image
+                            src="/logo.png"
+                            alt="Vito.dev Logo"
+                            width={24}
+                            height={24}
+                            className="w-6 h-6 object-contain opacity-80"
+                        />
+                        <span>vito.dev © {new Date().getFullYear()}. Code never lies. Feito em São José do Rio Preto, SP.</span>
                     </div>
                 </div>
             </div>

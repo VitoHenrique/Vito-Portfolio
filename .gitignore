@@ -41,3 +41,8 @@ yarn-error.log*
 next-env.d.ts
 
 .vercel
+
+# fora do Git: briefing privado e skills locais
+/_briefing/
+/.claude/skills/
+/.agents/

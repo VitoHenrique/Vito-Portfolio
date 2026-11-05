@@ -5,6 +5,9 @@ import TechMarquee from '@/components/TechMarquee';
 import Difference from '@/components/Difference';
 import Footer from '@/components/Footer';
 import ColorBends from '@/components/ColorBends';
+import About from '@/components/About';
+import Process from '@/components/Process';
+import FAQ from '@/components/FAQ';
 
 export default function Home() {
   return (
@@ -27,8 +30,11 @@ export default function Home() {
         <Header />
         <Hero />
         <TechMarquee />
+        <About />
         <Services />
+        <Process />
         <Difference />
+        <FAQ />
         <Footer />
       </div>
     </main>
