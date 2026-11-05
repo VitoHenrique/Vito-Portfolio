@@ -41,7 +41,7 @@ export const camadas: Camada[] = [
       { de: 168, ate: 190, rotulo: "Carimbo do logo" },
     ],
   },
-  { id: "legenda", nome: "Legenda", trechos: falas.map((t) => ({ ...t, rotulo: "Legenda" })) },
+  { id: "legenda", nome: "Legenda", trechos: falas.map((t) => ({ ...t, rotulo: "na tela, junto com a fala" })) },
 ];
 
 export const ativo = (camada: Camada, frame: number) =>
