@@ -10,7 +10,8 @@ import { CorridaInterativa } from "./CorridaInterativa";
  */
 export function Corrida({ cena = "02" }: { cena?: string }) {
   return (
-    <section id="corrida" data-cena={cena} aria-labelledby="titulo-corrida" className="relative px-3 py-6 md:px-6 md:py-[120px]">
+    // Só do tablet para cima: no celular a corrida não funcionou bem (pedido do Vito, 05/11/2026).
+    <section id="corrida" data-cena={cena} aria-labelledby="titulo-corrida" className="relative hidden px-3 py-6 md:block md:px-6 md:py-[120px]">
       <div className="mx-auto grid max-w-[1320px] gap-5 lg:grid-cols-[1fr_1.1fr] lg:items-center lg:gap-6">
         <div className="relative flex flex-col gap-4">
           <TituloDuasVozes id="titulo-corrida" pesada="Cada segundo" leve="custa cliente" className="max-w-[12ch]" />
