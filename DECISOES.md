@@ -98,6 +98,53 @@ O PageSpeed Insights sem chave respondeu 429 (cota esgotada). A medição foi fe
 - Console sem erros. O Ponto viaja entre as âncoras do `/lab`, e o contador de cena funciona.
 - Busca por itens aposentados (cores antigas, Inter, JetBrains, "Code never lies.", cidade, `@vito.dev`, npx, gradiente, glow, blur, stack, "agência", travessão em texto visível): nada no código do site.
 
+## Fase 2: fatia vertical (04/11/2026)
+
+### O que entrou
+
+- **Cena 0 · Carimbo.** `vito` entra, `dev` responde e o ponto carimba em ~0,63 s. Depois o Ponto viajante sai do ponto do logo e cresce até o canto do herói. Isso só acontece na primeira visita da sessão e sem movimento reduzido, e qualquer scroll, toque, clique ou tecla pula na hora. Um script inline no `<head>` decide antes da primeira pintura. Se o motor não assumir em 2,5 s, a página aparece normal.
+- **O wordmark animável** usa os caminhos do SVG oficial (`npm run logo` gera `src/marca/wordmark.ts`), sem redigitar o logo.
+- **Cena 1 · Herói.** H1 no primeiro quadro, Ponto cortado no canto superior direito que se inclina com o ponteiro no desktop, e medidor real `ESTA PÁGINA ABRIU EM X S` a partir do LCP do aparelho. Acima de 3 s, ou sem a API (Safari, Firefox), o medidor não aparece.
+- **Cena 8 · Vídeos.**
+  - O Ponto pousa no centro e a sala abre como íris (pin de 120 vh no desktop, por tempo no celular).
+  - Reel nativo com `preload="none"`, pôster AVIF de 8 KB, legenda `.vtt` e botão de som. Ele toca mudo só quando está na tela.
+  - Mesa com 7 efeitos reais do Remotion: miniatura parada e Player só no card ativo.
+  - Linha do tempo com régua que controla `seekTo`, 5 camadas que acendem e descrição em `aria-live`.
+  - "Sua marca em movimento" com nome, cor e formato via `inputProps`, e WhatsApp com o nome do negócio.
+  - Todo o Remotion só carrega a ~1 tela de distância.
+- **Planos (cena 9)** em versão estática, para o menu e o atalho funcionarem. A tela verde entra na Fase 3.
+- **Rodapé** e **WhatsApp flutuante**.
+
+### Decisões
+
+- **Legenda do reel:** o `.vtt` foi transcrito da legenda já gravada na imagem (quadros a cada 0,5 s), sem inventar texto.
+- **Formato 16:9 / 9:16 do embed principal:** o reel só existe em 9:16. A troca de formato entra com o showreel (Fase 5). Por enquanto, a vinheta editável já troca entre 9:16, 1:1 e 16:9.
+- **"Publicado":** antes de 06/11 18h o rótulo diz "Reel da vito.dev · 31 s". Depois, a home (revalidada a cada hora) passa a dizer "Reel publicado no Instagram" e mostra o link.
+- **Padaria Sol:** rótulo "projeto demonstrativo" (padrão da pergunta 4).
+- **Cores da vinheta:** as 5 sugestões (azul, laranja, rosa, amarelo, Giz) e o seletor livre são a cor da marca do visitante. Elas só existem dentro da vinheta, como pede o briefing.
+- **Contador de cena:** fica em pé na borda esquerda para não cobrir conteúdo, e sai do celular, onde não há margem livre.
+- **WhatsApp flutuante:** só do tablet para cima. No celular, o cabeçalho fixo já tem o botão, e o flutuante cobria o texto.
+- **Íris por variável CSS (`--iris`):** o GSAP pulava de 0 para 75% ao interpolar a string do `clip-path`. Com um número, a abertura fica contínua.
+- **Recalcular posições:** um ResizeObserver no `body` chama `ScrollTrigger.refresh()` quando ilhas tardias (a sala) mudam a altura da página.
+- **Remotion 4.0.537**, a mesma versão da central de vídeos, com todos os pacotes na versão exata. Licença gratuita assumida para até 3 pessoas (`acknowledgeRemotionLicense`).
+- **Peso vivo (ideia do briefing):** fica de fora por enquanto. Animar `font-weight` mexe em layout e pintura, e a regra do GSAP é animar só transform, opacity e clip-path. Fica para avaliar no Portão 1.
+
+### QA e desempenho (Portão 1)
+
+- **Playwright** (`scripts/qa-portao.mjs`): gravações em 1440 e 390 px e prints em 390, 768 e 1440 px, com e sem movimento reduzido. Nenhum erro de console, nenhuma rolagem lateral, e o botão principal fica visível sem rolar em todas as larguras. Com movimento reduzido, o Ponto fica estático (sem `ponto-vivo`).
+- **PageSpeed Insights oficial (celular, pela interface web, sem chave):**
+
+| Medida | Site atual | Site novo (preview) |
+| --- | --- | --- |
+| Desempenho | 88 | **99** |
+| FCP | 2,0 s | 1,5 s |
+| LCP | 3,3 s | 1,5 s |
+| TBT | 90 ms | 20 ms |
+| CLS | 0 | 0 |
+
+- O Lighthouse local fica distorcido pelo antivírus (ele descomprime e reescreve as páginas). `scripts/medir.ps1` bloqueia os arquivos injetados, mas os números oficiais são os do PageSpeed acima.
+- O SEO do preview aparece como 66 no Lighthouse local por causa do `noindex` que a Vercel põe em todo preview. No PageSpeed oficial deu 100.
+
 ### Padrões assumidos enquanto o Vito não responde
 
 | # | Pergunta | Padrão em uso |
