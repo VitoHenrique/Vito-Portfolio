@@ -143,6 +143,39 @@ html.ponto-vivo .ancora-ponto {
   visibility: hidden;
 }
 
+/* Cena 0 · abertura (src/cenas/abertura): o logo e o Ponto do herói esperam o carimbo. */
+html.abertura [data-logo-parte] {
+  opacity: 0;
+}
+html.abertura .ancora-ponto[data-ponto="heroi"] {
+  visibility: hidden;
+}
+
+/* Régua da linha do tempo (cena 8): range nativo, área de toque de 44 px. */
+.regua {
+  height: 44px;
+  accent-color: var(--color-verde-lima);
+  cursor: ew-resize;
+}
+
+/* Seletor de cor da vinheta: só o círculo, sem a moldura do navegador. */
+.seletor-cor {
+  appearance: none;
+  inline-size: 24px;
+  block-size: 24px;
+  padding: 0;
+  border: 0;
+  background: none;
+}
+.seletor-cor::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+.seletor-cor::-webkit-color-swatch,
+.seletor-cor::-moz-color-swatch {
+  border: 0;
+  border-radius: 999px;
+}
+
 /* Lenis (só desktop, ligado em src/motion/Rolagem.tsx) */
 html.lenis,
 html.lenis body {

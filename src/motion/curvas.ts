@@ -27,6 +27,19 @@ export const tempos = {
 } as const;
 
 /**
+ * Cena 0 · carimbo de abertura. A marca entra em até 0,8 s:
+ * vito em 0, dev em +0,12 s, o ponto carimba em +0,28 s (termina em ~0,63 s).
+ * Depois o Ponto sai do logo e viaja até o herói, com a página já utilizável.
+ */
+export const abertura = {
+  /** Quando o Ponto começa a sair do logo (o carimbo já passou do pico). */
+  saidaDoLogo: tempos.duasVozes.ponto + tempos.carimbo * 0.6,
+  viagem: 0.9,
+  /** Se o motor não assumir até aqui, a página aparece sem abertura. */
+  limiteMs: 2500,
+} as const;
+
+/**
  * cubic-bezier(x1, y1, x2, y2) como função de progresso, igual à do CSS.
  * Substitui o CustomEase do GSAP (3 KB a menos na abertura).
  */

@@ -59,7 +59,8 @@ export function Filme() {
     <div
       ref={ref}
       aria-hidden
-      className="rotulo pointer-events-none fixed bottom-[max(16px,env(safe-area-inset-bottom))] left-4 z-40 text-cinza-oliva opacity-0 md:left-5"
+      // Na borda esquerda, em pé, fora da área de leitura. No celular não há margem livre: não aparece.
+      className="rotulo pointer-events-none fixed bottom-6 left-1 z-40 hidden rotate-180 text-cinza-oliva opacity-0 [writing-mode:vertical-rl] md:block"
       style={{ visibility: "hidden" }}
     >
       CENA <span ref={cena}>00</span> · <span ref={tempo}>00:00</span>

@@ -28,6 +28,17 @@ function iniciar() {
   ScrollTrigger.config({ ignoreMobileResize: true });
   // Fontes mudam a métrica do texto: recalcula as posições quando chegam.
   document.fonts?.ready.then(() => ScrollTrigger.refresh());
+  // Ilhas que carregam depois (a sala de vídeos, por exemplo) mudam a altura
+  // da página: recalcula as posições quando a altura muda de verdade.
+  let altura = document.body.scrollHeight;
+  let espera = 0;
+  new ResizeObserver(() => {
+    const nova = document.body.scrollHeight;
+    if (Math.abs(nova - altura) < 2) return;
+    altura = nova;
+    clearTimeout(espera);
+    espera = window.setTimeout(() => ScrollTrigger.refresh(), 150);
+  }).observe(document.body);
 }
 
 iniciar();

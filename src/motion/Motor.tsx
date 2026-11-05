@@ -16,3 +16,9 @@ import dynamic from "next/dynamic";
 export const Ponto = dynamic(() => import("./Ponto").then((m) => m.Ponto), { ssr: false });
 export const Filme = dynamic(() => import("./Filme").then((m) => m.Filme), { ssr: false });
 export const Rolagem = dynamic(() => import("./Rolagem").then((m) => m.Rolagem), { ssr: false });
+
+/** Ilhas de cena da home. */
+export const Abertura = dynamic(() => import("@/cenas/abertura/Abertura").then((m) => m.Abertura), { ssr: false });
+export const AnimacaoVideos = dynamic(() => import("@/cenas/videos/AnimacaoVideos").then((m) => m.AnimacaoVideos), {
+  ssr: false,
+});

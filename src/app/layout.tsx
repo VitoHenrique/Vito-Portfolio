@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { contatos, marca } from "@/conteudo/site";
 import { Rolagem } from "@/motion/Motor";
+import { scriptAbertura } from "@/cenas/abertura/script";
 
 const epilogue = localFont({
   src: "../fontes/Epilogue-Variable.woff2",
@@ -49,7 +50,11 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pt-BR" className={`${epilogue.variable} ${martian.variable}`}>
+    <html lang="pt-BR" className={`${epilogue.variable} ${martian.variable}`} suppressHydrationWarning>
+      <head>
+        {/* Cena 0: decide a abertura antes da primeira pintura (ver src/cenas/abertura/script.ts). */}
+        <script dangerouslySetInnerHTML={{ __html: scriptAbertura }} />
+      </head>
       <body className="min-h-dvh">
         <a
           href="#conteudo"

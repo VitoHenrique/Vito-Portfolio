@@ -13,27 +13,28 @@ export const consultas = {
 } as const;
 
 type Montar = (ctx: Contexto, escopo: HTMLElement) => void | (() => void);
+type Escopo = RefObject<HTMLElement | null> | (() => HTMLElement | null);
 
 /**
- * Animação de uma cena, com limpeza automática ao sair (useGSAP + scope)
- * e um ramo por contexto (gsap.matchMedia).
+ * Animação de uma cena, com limpeza automática ao sair (gsap.matchMedia +
+ * revert) e um ramo por contexto. O escopo pode ser uma ref ou uma função
+ * que acha a seção no HTML do servidor (ilhas que não renderizam nada).
  *
- *   const ref = useRef<HTMLElement>(null);
- *   useCena(ref, (ctx, el) => { if (ctx === "reduzido") return; ... });
+ *   useCena(() => document.getElementById("videos"), (ctx, el) => { ... });
  *
  * (O nome começa com "use" por exigência das regras de hooks do React.)
  */
-export function useCena(escopo: RefObject<HTMLElement | null>, montar: Montar, deps: unknown[] = []) {
+export function useCena(escopo: Escopo, montar: Montar, deps: unknown[] = []) {
   useGSAP(
     () => {
-      const el = escopo.current;
+      const el = typeof escopo === "function" ? escopo() : escopo.current;
       if (!el) return;
-      const mm = gsap.matchMedia();
+      const mm = gsap.matchMedia(el);
       (Object.keys(consultas) as Contexto[]).forEach((ctx) => {
         mm.add(consultas[ctx], () => montar(ctx, el));
       });
       return () => mm.revert();
     },
-    { scope: escopo, dependencies: deps },
+    { dependencies: deps },
   );
 }
