@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Botao, BotaoWhatsApp } from "@/componentes/Botao";
 import { TituloDuasVozes } from "@/componentes/TituloDuasVozes";
 import { AncoraPonto } from "@/motion/AncoraPonto";
@@ -21,6 +22,19 @@ export function Heroi() {
         ponteiro
         className="absolute -right-[34vw] -top-[18vw] -z-10 w-[86vw] md:-right-[14vw] md:-top-[22vw] md:w-[52vw] lg:-right-[10vw] lg:-top-[18vw] lg:w-[44vw]"
       />
+      {/*
+        A seta para baixo, sobre a parte visível do Ponto (pedido do Vito): diz "role para ver mais".
+        As posições seguem a geometria da âncora acima em cada largura; some ao rolar (Atalhos.tsx).
+      */}
+      <a
+        href="#servicos"
+        aria-label="Descer para ver mais"
+        className="seta-ponto absolute left-[74vw] top-[34vw] z-10 grid size-16 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-pill text-grafite md:left-[80vw] md:top-[20vw] md:size-24 lg:top-[18vw]"
+      >
+        <svg aria-hidden viewBox="0 0 24 24" className="size-12 md:size-20" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M12 4v15M5.5 12.5 12 19l6.5-6.5" />
+        </svg>
+      </a>
       <div className="mx-auto flex w-full max-w-[1320px] flex-col gap-4 md:gap-5">
         <Medidor />
         <TituloDuasVozes
@@ -40,9 +54,9 @@ export function Heroi() {
           <Botao variante="secundario" href="#servicos">
             Ver exemplos
           </Botao>
-          <a href="#planos" className="corpo-pequeno inline-flex min-h-11 items-center px-2 text-cinza-oliva underline-offset-4 hover:text-giz hover:underline">
+          <Link href="/sites#planos" className="corpo-pequeno inline-flex min-h-11 items-center px-2 text-cinza-oliva underline-offset-4 hover:text-giz hover:underline">
             Ver planos
-          </a>
+          </Link>
         </div>
       </div>
     </section>

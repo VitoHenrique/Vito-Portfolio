@@ -4,7 +4,7 @@ import { BotaoWhatsApp } from "./Botao";
 import { servicos } from "@/conteudo/servicos";
 
 const curtos = { sites: "Sites", sistemas: "Sistemas", identidade: "Identidade visual", videos: "Vídeos" } as const;
-const links = [...servicos.map((s) => ({ href: s.href, rotulo: curtos[s.id] })), { href: "/#planos", rotulo: "Planos" }];
+const links = [...servicos.map((s) => ({ href: s.href, rotulo: curtos[s.id] })), { href: "/sites#planos", rotulo: "Planos" }];
 
 /**
  * Cabeçalho fixo: logo, os 4 serviços (cada um com a sua página), planos e
@@ -23,7 +23,7 @@ export function Cabecalho() {
           <Wordmark largura={160} />
         </Link>
         <nav aria-label="Principal" className="flex shrink-0 items-center gap-1.5 md:gap-2">
-          <Link href="/#planos" className="corpo-pequeno sr-only rounded-pill px-3 py-2 text-cinza-oliva focus:not-sr-only focus:text-giz">
+          <Link href="/sites#planos" className="corpo-pequeno sr-only rounded-pill px-3 py-2 text-cinza-oliva focus:not-sr-only focus:text-giz">
             Pular para os planos
           </Link>
           <a href="#fecho" className="corpo-pequeno sr-only rounded-pill px-3 py-2 text-cinza-oliva focus:not-sr-only focus:text-giz">

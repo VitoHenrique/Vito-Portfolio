@@ -2,7 +2,7 @@
 
 import { gsap } from "@/motion/gsap";
 import { useCena } from "@/motion/usarCena";
-import { carimbo, duasVozes, entradaMascara } from "@/motion/assinatura";
+import { carimbo, duasVozes, entradaMascara, saidaMascara } from "@/motion/assinatura";
 import { tempos } from "@/motion/curvas";
 
 /**
@@ -22,7 +22,8 @@ export function AnimacaoCenas() {
         void gsap.timeline({ scrollTrigger: { trigger: alvo, start: inicio, once: true, refreshPriority: -1 } }).add(tocar());
 
       // Títulos em duas vozes de todas as cenas, menos o herói (H1 no primeiro quadro).
-      raiz.querySelectorAll("[data-cena]:not(#heroi) :is(h2):has([data-voz=pesada])").forEach((t) => {
+      // (O título do fecho fica de fora: ele é a vinheta em loop, mais abaixo.)
+      raiz.querySelectorAll("[data-cena]:not(#heroi) h2:not([data-estado]):has([data-voz=pesada])").forEach((t) => {
         if (t.closest("[data-tela-verde]")) return aoEntrar(t, () => duasVozes(t), "top 70%");
         aoEntrar(t, () => duasVozes(t));
       });
@@ -51,6 +52,36 @@ export function AnimacaoCenas() {
           { scaleX: 1, scaleY: 1, ease: "none", scrollTrigger: { trigger: processo, start: "top 75%", end: "bottom 55%", scrub: 0.5 } },
         );
         etapas.forEach((e) => aoEntrar(e, () => entradaMascara(e), "top 78%"));
+      }
+
+      // Fecho: a vinheta em loop. Frase (pesada, leve, ponto carimba) → respiro → sai →
+      // wordmark (vito, dev, ponto carimba) → respiro → sai → recomeça. Pausa fora da tela.
+      const vinheta = raiz.querySelector("[data-vinheta-fecho]");
+      if (vinheta) {
+        const frase = vinheta.querySelector<HTMLElement>("[data-estado=frase]")!;
+        const marca = vinheta.querySelector<HTMLElement>("[data-estado=marca]")!;
+        const partes = (p: string) => marca.querySelector(`[data-logo-parte="${p}"]`)!;
+        const vozes = [frase.querySelector("[data-voz=pesada]")!, frase.querySelector("[data-voz=leve]")!];
+        const pontoFrase = frase.querySelector("[data-voz=ponto]")!;
+        const tl = gsap.timeline({ repeat: -1, paused: true });
+        tl.set(marca, { autoAlpha: 0 })
+          .set(frase, { autoAlpha: 1 })
+          .add(duasVozes(frase))
+          .to({}, { duration: 3 })
+          .add(saidaMascara(vozes, { stagger: 0.06 }))
+          .to(pontoFrase, { scale: 0, duration: tempos.saida, ease: "saida" }, "<")
+          .set(frase, { autoAlpha: 0 })
+          .set(marca, { autoAlpha: 1 })
+          .add(entradaMascara(partes("vito")), ">")
+          .add(entradaMascara(partes("dev")), `<${tempos.duasVozes.leve}`)
+          .add(carimbo(partes("ponto")), `<${tempos.duasVozes.ponto - tempos.duasVozes.leve}`)
+          .to({}, { duration: 2.5 })
+          .add(saidaMascara([partes("vito"), partes("dev")], { stagger: 0.06 }))
+          .to(partes("ponto"), { scale: 0, duration: tempos.saida, ease: "saida" }, "<")
+          .to({}, { duration: 0.25 });
+        gsap.timeline({
+          scrollTrigger: { trigger: vinheta, start: "top 85%", end: "bottom 10%", onToggle: (st) => (st.isActive ? tl.play() : tl.pause()), refreshPriority: -1 },
+        });
       }
 
       // Cena 10: a conversa chega uma mensagem por vez.

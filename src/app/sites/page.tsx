@@ -28,7 +28,7 @@ export default function PaginaSites() {
       />
       <Corrida cena="02" />
       <Sites cena="03" />
-      <Planos cena="04" telaVerde={false} />
+      <Planos cena="04" ids={["inicial", "pro"]} />
       <Fecho cena="05" origem="sites-fecho" />
       <OutrosServicos atual="sites" />
     </Moldura>

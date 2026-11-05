@@ -4,7 +4,6 @@ import Link from "next/link";
 
 import { useEffect, useRef, useState, type RefObject } from "react";
 import { TituloDuasVozes } from "@/componentes/TituloDuasVozes";
-import { Numero } from "@/componentes/Rotulo";
 import { Losango } from "@/componentes/Marcador";
 import { BotaoWhatsApp } from "@/componentes/Botao";
 import { servicos, type IdServico } from "@/conteudo/servicos";
@@ -57,30 +56,36 @@ export function Oficios({ cena = "02" }: { cena?: string }) {
         <div className="flex flex-col gap-5">
           <TituloDuasVozes id="titulo-oficios" pesada="Do que você precisa?" leve="Escolha por onde começar" className="max-w-[14ch]" />
           <p className="corpo max-w-[44ch] text-cinza-oliva">
-            Cada serviço tem a sua página, com exemplos para você ver e mexer. Do logo ao sistema, tudo num lugar só.
+            Toque no que você precisa. Cada serviço abre uma página com exemplos para você ver e mexer.
           </p>
-          <ul className="flex flex-col border-t border-linha">
+          <ul className="flex flex-col gap-2">
             {servicos.map((s) => {
               const sel = s.id === ativo;
               return (
-                <li key={s.id} className="border-b border-linha">
+                <li key={s.id}>
                   <Link
                     href={s.href}
                     onPointerEnter={() => setAtivo(s.id)}
                     onFocus={() => setAtivo(s.id)}
                     aria-current={sel ? "true" : undefined}
-                    className="group grid min-h-11 grid-cols-[16px_1fr] items-baseline gap-3 py-4 md:grid-cols-[16px_1fr_auto]"
+                    className={`group grid min-h-11 grid-cols-[56px_1fr_auto] items-center gap-4 rounded-md border px-4 py-4 transition-colors md:grid-cols-[16px_1fr_auto] ${sel ? "border-giz bg-grafite-claro" : "border-linha hover:border-giz hover:bg-grafite-claro"}`}
                   >
-                    <span className={sel ? "" : "invisible"}>
+                    {/* No celular, cada serviço mostra a sua miniatura; no desktop, o losango marca o ativo. */}
+                    <span className="block w-14 md:hidden" aria-hidden>
+                      <Ilustracao id={s.id} />
+                    </span>
+                    <span className={`hidden md:block ${sel ? "" : "invisible"}`}>
                       <Losango tamanho={8} />
                     </span>
                     <span className="flex flex-col gap-1">
-                      <span className={`subtitulo ${sel ? "text-giz" : "text-cinza-oliva"} group-hover:text-giz`}>{s.nome}</span>
+                      <span className="subtitulo text-giz">{s.nome}</span>
                       <span className="corpo-pequeno text-cinza-oliva">{s.resumo}</span>
                     </span>
-                    <span className="col-start-2 flex flex-col gap-1 md:col-start-auto md:items-end">
-                      <Numero className="text-cinza-oliva">{s.preco}</Numero>
-                      <span className="corpo-pequeno text-verde-lima">{s.chamada}</span>
+                    <span className="flex items-center gap-2 text-verde-lima">
+                      <span className="corpo-pequeno hidden font-semibold lg:inline">Ver exemplos</span>
+                      <svg aria-hidden viewBox="0 0 20 20" className="size-5 transition-[translate] duration-200 group-hover:translate-x-1" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M4 10h12M11 5l5 5-5 5" />
+                      </svg>
                     </span>
                   </Link>
                 </li>

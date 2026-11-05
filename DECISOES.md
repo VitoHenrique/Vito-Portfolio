@@ -239,6 +239,21 @@ O PageSpeed Insights sem chave respondeu 429 (cota esgotada). A medição foi fe
 - **Os posts do Instagram ficam como foram publicados** (eles dizem "até 5 dias úteis"). Pendente para o Vito: atualizar `/prazo` e `/pro` no WhatsApp Business, e o `vito-dev-contexto.md`.
 - **`next/link` na navegação interna:** a troca de página fica instantânea. Cada página monta e desmonta o próprio Ponto e as próprias animações.
 
+## Segunda revisão do Vito e lançamento (05/11/2026)
+
+- **Menu "Do que você precisa?"** mais intuitivo: cada serviço é um botão com borda, seta e "Ver exemplos", e no celular cada um tem uma miniatura. **Sem preços** aqui nem em "Conheça também". Os preços ficam só nos planos de cada produto.
+- **Planos só nos produtos** (saíram da home):
+  - `/sites` mostra o Inicial e o Pro;
+  - `/sistemas` mostra o sob medida;
+  - `/identidade-visual` e `/videos` mostram um card "orçamento por projeto" com o que vem incluso (`PlanoProjeto`).
+  - Todos começam pela tela verde. "Planos" no menu e no herói leva a `/sites#planos`.
+- **Tela verde com o símbolo Encontro todo em Grafite** (mono escuro), à direita do texto e centralizado com ele. É uma exceção à regra "logo nunca sobre o Verde Lima", **decidida pelo Vito**. A geometria é a do SVG oficial.
+- **Seta animada sobre o Ponto do herói** (em Grafite, sobe e desce devagar) indicando que há mais para ver. Leva aos serviços e some ao rolar e durante a abertura. Com movimento reduzido, fica parada.
+- **Reel trocado** pelo arquivo novo do Vito (`vito-dev_reel-3-logos_3-logos_9x16-centro_31s_v1.mp4`, centralizado, mesma duração). Ele abre tocando, sem som e em loop, e pausa fora da tela. Os controles saíram de cima do vídeo e ficam abaixo do celular ("Pausar/Tocar" e "Ligar/Tirar som"). Com movimento reduzido, não começa sozinho.
+- **Fecho como vinheta em loop:** "Seu site no ar. Ponto." entra com a animação da vinheta (pesada, leve, ponto carimba), fica 3 s, sai, entra o wordmark vito.dev por 2,5 s e recomeça. O loop pausa fora da tela. O H2 de verdade continua no HTML. O Ponto não pousa mais no fecho.
+- **Glifo do Instagram** (linha, em Giz) em todo link que sai para o Instagram: o @ do rodapé, a cena do Instagram, "Ver no Instagram" e "Ver o post original". A simulação do perfil continua sem o logo do app.
+- **Publicação em produção** autorizada pelo Vito ("joga para a Vercel naquele domínio principal").
+
 ### Padrões assumidos enquanto o Vito não responde
 
 | # | Pergunta | Padrão em uso |

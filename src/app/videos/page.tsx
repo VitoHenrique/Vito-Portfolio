@@ -4,6 +4,7 @@ import { OutrosServicos } from "@/componentes/OutrosServicos";
 import { HeroiServico } from "@/cenas/heroi/HeroiServico";
 import { Videos } from "@/cenas/videos/Videos";
 import { Fecho } from "@/cenas/fecho/Fecho";
+import { PlanoProjeto } from "@/cenas/planos/PlanoProjeto";
 import { AnimacaoVideos } from "@/motion/Motor";
 
 /** O rótulo do reel muda sozinho no dia da estreia (06/11) sem novo deploy. */
@@ -30,7 +31,18 @@ export default function PaginaVideos() {
         secundario={{ href: "#videos", rotulo: "Entrar na sala" }}
       />
       <Videos cena="02" />
-      <Fecho cena="03" perguntas={false} origem="videos-fecho" />
+      <PlanoProjeto
+        cena="03"
+        nome="Vídeos e animações"
+        origem="videos-plano"
+        verde={{
+          pesada: "Seu vídeo,",
+          leve: "com prazo e preço combinados",
+          texto: "Me conta para onde é o vídeo e quantos você precisa por mês. O orçamento sai antes de começar.",
+        }}
+        itens={["Roteiro, animação e legenda", "Formatos 9:16, 1:1 e 16:9", "Com as suas cores e as suas fontes", "Para Reels, anúncios e apresentações"]}
+      />
+      <Fecho cena="04" perguntas={false} origem="videos-fecho" />
       <OutrosServicos atual="videos" />
     </Moldura>
   );

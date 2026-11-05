@@ -5,6 +5,7 @@ import { HeroiServico } from "@/cenas/heroi/HeroiServico";
 import { Identidade } from "@/cenas/identidade/Identidade";
 import { Instagram } from "@/cenas/instagram/Instagram";
 import { Fecho } from "@/cenas/fecho/Fecho";
+import { PlanoProjeto } from "@/cenas/planos/PlanoProjeto";
 
 export const metadata: Metadata = {
   title: "Identidade visual",
@@ -27,7 +28,18 @@ export default function PaginaIdentidade() {
       />
       <Identidade cena="02" />
       <Instagram cena="03" />
-      <Fecho cena="04" perguntas={false} origem="identidade-fecho" />
+      <PlanoProjeto
+        cena="04"
+        nome="Identidade visual completa"
+        origem="identidade-plano"
+        verde={{
+          pesada: "Sua marca pronta,",
+          leve: "do logo ao manual",
+          texto: "Orçamento por projeto, combinado antes de começar. O valor depende do que você já tem hoje.",
+        }}
+        itens={["Logo em todas as versões", "Cores e tipografia", "Peças para redes e impressos", "Manual simples de uso"]}
+      />
+      <Fecho cena="05" perguntas={false} origem="identidade-fecho" />
       <OutrosServicos atual="identidade" />
     </Moldura>
   );

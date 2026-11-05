@@ -181,6 +181,32 @@ html.abertura .ancora-ponto[data-ponto="heroi"] {
   }
 }
 
+/* Herói · a seta sobre o Ponto: desce e volta, devagar. Some ao rolar e na abertura. */
+@keyframes seta-desce {
+  0%,
+  100% {
+    translate: -50% -50%;
+  }
+  50% {
+    translate: -50% calc(-50% + 10px);
+  }
+}
+.seta-ponto {
+  animation: seta-desce 1.8s var(--ease-entrada) infinite;
+  transition: opacity 0.3s var(--ease-saida);
+}
+html[data-rolou] .seta-ponto,
+html.abertura .seta-ponto {
+  opacity: 0;
+  pointer-events: none;
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .seta-ponto {
+    animation: none;
+  }
+}
+
 /* Cena 9 · o cabeçalho (com o logo) sai de cena sobre a tela verde. */
 [data-cabecalho] {
   transition: translate 0.3s var(--ease-saida);

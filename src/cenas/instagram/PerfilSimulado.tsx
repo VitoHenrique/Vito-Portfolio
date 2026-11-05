@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import dados from "@/conteudo/instagram.json";
+import { IconeInstagram } from "@/componentes/LinkInstagram";
 
 /**
  * Cena 7 · um perfil de verdade no celular. Conteúdo real do
@@ -152,7 +153,8 @@ function PostAberto({ post, fechar }: { post: Post; fechar: () => void }) {
           )}
         </p>
         {mais && <p className="corpo-pequeno whitespace-pre-line text-cinza-oliva">{resto.join("\n").trim()}</p>}
-        <a href={post.permalink} target="_blank" rel="noopener noreferrer" className="corpo-pequeno min-h-11 py-3 text-verde-lima underline-offset-4 hover:underline">
+        <a href={post.permalink} target="_blank" rel="noopener noreferrer" className="corpo-pequeno inline-flex min-h-11 items-center gap-2 py-3 text-giz underline-offset-4 hover:underline">
+          <IconeInstagram />
           Ver o post original no Instagram
         </a>
       </div>
@@ -202,7 +204,8 @@ export function PerfilSimulado() {
           <span className="font-extrabold">Seu site no ar.</span> <span className="font-light">Ponto</span>
           <span className="text-verde-lima">.</span>
         </p>
-        <a href={dados.perfil.link} target="_blank" rel="noopener noreferrer" className="mt-2 rounded-sm border border-linha py-2 text-center text-[13px] font-semibold">
+        <a href={dados.perfil.link} target="_blank" rel="noopener noreferrer" className="mt-2 flex items-center justify-center gap-2 rounded-sm border border-linha py-2 text-[13px] font-semibold">
+          <IconeInstagram className="size-3.5" />
           Ver no Instagram
         </a>
       </div>

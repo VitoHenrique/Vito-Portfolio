@@ -1,6 +1,4 @@
 import { TituloDuasVozes } from "@/componentes/TituloDuasVozes";
-import { ListaMarcada } from "@/componentes/Marcador";
-import { BotaoWhatsApp } from "@/componentes/Botao";
 import { Anatomia } from "./Anatomia";
 import { AntesDepois } from "./AntesDepois";
 import { Aplicacoes } from "./Aplicacoes";
@@ -37,18 +35,7 @@ export function Identidade({ cena = "06" }: { cena?: string }) {
           </div>
         </div>
 
-        <div className="flex flex-col gap-4 border-t border-linha pt-5 md:flex-row md:items-end md:justify-between">
-          <div className="flex flex-col gap-3">
-            <h3 className="subtitulo">O que vem no pacote</h3>
-            <ListaMarcada
-              className="corpo text-cinza-oliva"
-              itens={["Logo em todas as versões", "Cores e tipografia", "Peças para redes e impressos", "Manual simples de uso"]}
-            />
-          </div>
-          <BotaoWhatsApp origem="identidade" className="self-start md:self-auto">
-            Pedir orçamento
-          </BotaoWhatsApp>
-        </div>
+        {/* "O que vem no pacote" e o orçamento ficam no plano, no fim da página (PlanoProjeto). */}
       </div>
     </section>
   );

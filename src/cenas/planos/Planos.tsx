@@ -1,7 +1,7 @@
 import { Card } from "@/componentes/Card";
 import { ListaMarcada, Losango } from "@/componentes/Marcador";
 import { Numero, Rotulo } from "@/componentes/Rotulo";
-import { TituloDuasVozes } from "@/componentes/TituloDuasVozes";
+import { TelaVerde } from "@/componentes/TelaVerde";
 import { BotaoWhatsApp } from "@/componentes/Botao";
 import { formatarReais, plano, totalEm12Meses, type IdPlano } from "@/conteudo/precos";
 
@@ -46,33 +46,28 @@ const detalhes: Record<IdPlano, { paraQuem: string; itens: string[]; botao: stri
   },
 };
 
-const ordem: IdPlano[] = ["inicial", "pro", "sob-medida"];
+type Props = {
+  cena?: string;
+  /** Quais planos esta página mostra: sites mostra Inicial e Pro; sistemas, o sob medida. */
+  ids?: IdPlano[];
+  verde?: { pesada: string; leve: string; texto: string };
+};
 
-/** telaVerde: o momento verde acontece uma vez só, na home. Nas outras páginas, título normal. */
-export function Planos({ cena = "09", telaVerde = true }: { cena?: string; telaVerde?: boolean }) {
+const verdePadrao = {
+  pesada: "Site profissional",
+  leve: "sem susto no fim do mês",
+  texto: "Uma implantação e uma mensalidade fixa. Hospedagem, domínio e pequenas alterações inclusos.",
+};
+
+/** Os planos ficam no fim de cada produto (não na home), sempre depois da tela verde. */
+export function Planos({ cena = "09", ids = ["inicial", "pro"], verde = verdePadrao }: Props) {
+  const colunas = ids.length >= 3 ? "lg:grid-cols-3" : ids.length === 2 ? "md:grid-cols-2" : "max-w-[560px]";
   return (
     <section id="planos" data-cena={cena} aria-labelledby="titulo-planos" className="relative">
-      {/* A tela verde: uma vez só, no máximo uma altura de tela, sem logo (o cabeçalho sai de cena). */}
-      {telaVerde ? (
-        <div data-tela-verde className="flex min-h-[80svh] items-center bg-verde-lima px-3 py-6 md:min-h-[90svh] md:px-6">
-          <div className="mx-auto flex w-full max-w-[1320px] flex-col gap-4">
-            <TituloDuasVozes id="titulo-planos" pesada="Site profissional" leve="sem susto no fim do mês" sobreVerde className="max-w-[16ch]" />
-            <p className="corpo max-w-[46ch] text-grafite">
-              Uma implantação e uma mensalidade fixa. Hospedagem, domínio e pequenas alterações inclusos.
-            </p>
-          </div>
-        </div>
-      ) : (
-        <div className="mx-auto flex max-w-[1320px] flex-col gap-4 px-3 pt-6 md:px-6 md:pt-[120px]">
-          <TituloDuasVozes id="titulo-planos" pesada="Site profissional" leve="sem susto no fim do mês" className="max-w-[16ch]" />
-          <p className="corpo max-w-[46ch] text-cinza-oliva">
-            Uma implantação e uma mensalidade fixa. Hospedagem, domínio e pequenas alterações inclusos.
-          </p>
-        </div>
-      )}
+      <TelaVerde {...verde} />
       <div className="mx-auto flex max-w-[1320px] flex-col gap-5 px-3 py-6 md:px-6 md:py-[96px]">
-        <ul className="grid gap-4 lg:grid-cols-3">
-          {ordem.map((id) => {
+        <ul className={`grid gap-4 ${colunas}`}>
+          {ids.map((id) => {
             const p = plano(id);
             const d = detalhes[id];
             const pro = id === "pro";
@@ -133,9 +128,9 @@ export function Planos({ cena = "09", telaVerde = true }: { cena?: string; telaV
             );
           })}
         </ul>
-        <p className="corpo-pequeno text-cinza-oliva">
-          Identidade visual e vídeos têm orçamento por projeto, combinado antes de começar.
-        </p>
+        {ids.includes("inicial") && (
+          <p className="corpo-pequeno text-cinza-oliva">Precisa de algo maior? O sistema sob medida tem a sua página.</p>
+        )}
       </div>
     </section>
   );

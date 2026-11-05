@@ -2,7 +2,7 @@ import { TituloDuasVozes } from "@/componentes/TituloDuasVozes";
 import { Celular } from "@/componentes/Celular";
 import { ListaMarcada } from "@/componentes/Marcador";
 import { BotaoWhatsApp } from "@/componentes/Botao";
-import { contatos } from "@/conteudo/site";
+import { LinkInstagram } from "@/componentes/LinkInstagram";
 import { CarregarPerfil } from "./CarregarPerfil";
 
 /**
@@ -32,9 +32,7 @@ export function Instagram({ cena = "07" }: { cena?: string }) {
           </p>
           <div className="flex flex-wrap items-center gap-3">
             <BotaoWhatsApp origem="instagram">Quero peças assim</BotaoWhatsApp>
-            <a href={contatos.instagramLink} target="_blank" rel="noopener noreferrer" className="corpo-pequeno inline-flex min-h-11 items-center px-2 text-cinza-oliva hover:text-giz">
-              {contatos.instagram}
-            </a>
+            <LinkInstagram className="corpo-pequeno px-2" />
           </div>
         </div>
         <Celular rotulo="Perfil @vitodev.oficial no celular" className="w-[min(100%,340px)] md:w-[340px]">

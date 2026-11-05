@@ -1,5 +1,5 @@
 import { BotaoWhatsApp } from "@/componentes/Botao";
-import { AncoraPonto } from "@/motion/AncoraPonto";
+import { Wordmark } from "@/componentes/Wordmark";
 import { faq } from "@/conteudo/faq";
 
 /**
@@ -41,18 +41,28 @@ export function Fecho({ cena = "11", perguntas = true, origem = "fecho" }: Props
       </div>
       )}
 
-      <div id="fecho" data-gatilho-ponto className="mx-auto flex min-h-[80svh] max-w-[1320px] flex-col justify-center gap-5 py-6 md:py-[120px]">
-        <h2 id="titulo-fecho" tabIndex={-1} className="display text-balance text-giz outline-none">
-          <span className="inline-block">Seu site no ar.</span>{" "}
-          <span className="titulo-leve inline-block">
-            Ponto
-            <span className="relative inline-block text-verde-lima">
-              .
-              {/* O Ponto pousa aqui: um círculo do tamanho do ponto final. */}
-              <AncoraPonto nome="fecho" carimbo className="absolute bottom-[0.16em] left-[0.03em] w-[0.19em]" />
+      <div id="fecho" className="mx-auto flex min-h-[80svh] max-w-[1320px] flex-col justify-center gap-5 py-6 md:py-[120px]">
+        {/*
+          A vinheta do fecho (pedido do Vito): a frase e o wordmark se revezam em loop,
+          com a mesma animação da vinheta dos vídeos. Os dois ocupam a mesma célula da
+          grade. Sem JS ou com movimento reduzido, fica só a frase (o H2 de verdade).
+        */}
+        <div data-vinheta-fecho className="grid min-h-[1.9em] items-center [font-size:clamp(3rem,1.4rem+6.8vw,7rem)]">
+          <h2 id="titulo-fecho" tabIndex={-1} data-estado="frase" className="display col-start-1 row-start-1 text-balance text-giz outline-none">
+            <span data-voz="pesada" className="inline-block">
+              Seu site no ar.
+            </span>{" "}
+            <span data-voz="leve" className="titulo-leve inline-block">
+              Ponto
+              <span data-voz="ponto" className="inline-block text-verde-lima">
+                .
+              </span>
             </span>
-          </span>
-        </h2>
+          </h2>
+          <div data-estado="marca" aria-hidden className="invisible col-start-1 row-start-1">
+            <Wordmark largura={560} className="h-auto w-[min(78vw,560px)]" />
+          </div>
+        </div>
         <p className="corpo max-w-[44ch] text-cinza-oliva">Me conta qual é o seu negócio. Eu te respondo pelo WhatsApp.</p>
         <BotaoWhatsApp origem={origem} variante="lima" className="self-start">
           Chamar no WhatsApp

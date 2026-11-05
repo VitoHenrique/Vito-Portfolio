@@ -1,11 +1,10 @@
 import { TituloDuasVozes } from "@/componentes/TituloDuasVozes";
 import { Rotulo } from "@/componentes/Rotulo";
-import { Celular } from "@/componentes/Celular";
 import { ListaMarcada } from "@/componentes/Marcador";
 import { BotaoWhatsApp } from "@/componentes/Botao";
 import { AncoraPonto } from "@/motion/AncoraPonto";
 import { flags } from "@/conteudo/flags";
-import { contatos } from "@/conteudo/site";
+import { LinkInstagram } from "@/componentes/LinkInstagram";
 import { VideoReel } from "./VideoReel";
 import { CarregarSala } from "./CarregarSala";
 
@@ -49,33 +48,22 @@ export function Videos({ cena = "08" }: { cena?: string }) {
             </p>
             <ListaMarcada
               className="corpo-pequeno text-cinza-oliva"
-              itens={["Legenda gravada e em arquivo (.vtt)", "Começa sem som: ligue quando quiser", "Formato 9:16, pronto para Reels"]}
+              itens={["Legenda gravada e em arquivo (.vtt)", "Toca em loop, sem som: ligue quando quiser", "Formato 9:16, pronto para Reels"]}
             />
             <Rotulo>Padaria Sol · projeto demonstrativo</Rotulo>
             <div className="flex flex-wrap gap-3 pt-1">
               <BotaoWhatsApp origem="videos-reel" pedido={{ tipo: "geral" }}>
                 Quero um vídeo assim
               </BotaoWhatsApp>
-              {publicado && (
-                <a
-                  href={contatos.instagramLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="corpo-pequeno inline-flex min-h-11 items-center px-2 text-cinza-oliva underline-offset-4 hover:text-giz hover:underline"
-                >
-                  Ver no Instagram
-                </a>
-              )}
+              {publicado && <LinkInstagram className="corpo-pequeno px-2">Ver no Instagram</LinkInstagram>}
             </div>
           </div>
-          <Celular rotulo="Reel 3 logos, 1 empresa" className="w-[260px] md:w-[300px]">
-            <VideoReel
-              src="/video/3-logos-1-empresa.mp4"
-              poster="/video/3-logos-1-empresa-capa.avif"
-              legendas="/video/3-logos-1-empresa.pt-BR.vtt"
-              titulo="Reel 3 logos, 1 empresa, da vito.dev"
-            />
-          </Celular>
+          <VideoReel
+            src="/video/3-logos-1-empresa.mp4"
+            poster="/video/3-logos-1-empresa-capa.avif"
+            legendas="/video/3-logos-1-empresa.pt-BR.vtt"
+            titulo="Reel 3 logos, 1 empresa, da vito.dev"
+          />
         </div>
       </div>
 

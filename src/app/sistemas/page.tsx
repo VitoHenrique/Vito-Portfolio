@@ -4,6 +4,7 @@ import { OutrosServicos } from "@/componentes/OutrosServicos";
 import { HeroiServico } from "@/cenas/heroi/HeroiServico";
 import { Sistemas } from "@/cenas/sistemas/Sistemas";
 import { Fecho } from "@/cenas/fecho/Fecho";
+import { Planos } from "@/cenas/planos/Planos";
 import { AnimacaoSistemas } from "@/motion/Motor";
 
 export const metadata: Metadata = {
@@ -27,7 +28,16 @@ export default function PaginaSistemas() {
         secundario={{ href: "#sistemas", rotulo: "Ver a planilha virar sistema" }}
       />
       <Sistemas cena="02" />
-      <Fecho cena="03" perguntas={false} origem="sistemas-fecho" />
+      <Planos
+        cena="03"
+        ids={["sob-medida"]}
+        verde={{
+          pesada: "Sistema sob medida,",
+          leve: "preço combinado antes",
+          texto: "Implantação a partir de R$ 1.000. A mensalidade depende do que o sistema faz e é combinada antes de começar.",
+        }}
+      />
+      <Fecho cena="04" perguntas={false} origem="sistemas-fecho" />
       <OutrosServicos atual="sistemas" />
     </Moldura>
   );

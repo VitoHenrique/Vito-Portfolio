@@ -7,6 +7,7 @@ import { useEffect } from "react";
  * 1. O logo nunca vai sobre o Verde Lima: o cabeçalho sai de cena enquanto
  *    a tela verde dos planos está visível (classe no <html>, CSS faz o resto).
  * 2. Tecla ponto: apertar "." leva direto ao fecho (fora de campos de texto).
+ * 3. `data-rolou` no <html>: esconde a seta do herói depois que a pessoa rola.
  */
 export function Atalhos() {
   useEffect(() => {
@@ -32,10 +33,18 @@ export function Atalhos() {
       document.getElementById("titulo-fecho")?.focus({ preventScroll: true });
     };
     window.addEventListener("keydown", tecla);
+
+    // A seta do herói some assim que a pessoa começa a rolar (e volta no topo).
+    const rolou = () => html.toggleAttribute("data-rolou", window.scrollY > 40);
+    rolou();
+    window.addEventListener("scroll", rolou, { passive: true });
+
     return () => {
       obs?.disconnect();
       window.removeEventListener("keydown", tecla);
+      window.removeEventListener("scroll", rolou);
       html.removeAttribute("data-tela-verde");
+      html.removeAttribute("data-rolou");
     };
   }, []);
   return null;
